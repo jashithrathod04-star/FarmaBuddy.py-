@@ -1,88 +1,131 @@
 import streamlit as st
 import google.generativeai as genai
+import pandas as pd
+from datetime import datetime
 
-# --- 1. APP CONFIGURATION ---
-st.set_page_config(page_title="BiharKrishi AI", page_icon="🌾", layout="wide")
+# ---------------- CONFIG ----------------
+st.set_page_config(
+    page_title="FarmaBuddy 🌱",
+    page_icon="🌾",
+    layout="wide"
+)
 
-# --- 2. GEMINI API SETUP (Integrated) ---
-try:
-    if "GOOGLE_API_KEY" in st.secrets:
-        api_key = st.secrets["GOOGLE_API_KEY"]
-        genai.configure(api_key=api_key)
-        
-        # Optimized parameters to ensure factual, region-specific results (Step 5)
-        generation_config = {
-            "temperature": 0.2, 
-            "max_output_tokens": 400,
-        }
-        
-        model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
-            generation_config=generation_config
-        )
+# ---------------- API KEY ----------------
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+
+model = genai.GenerativeModel(
+    model_name="models/gemini-1.5-flash",
+    generation_config={
+        "temperature": 0.5,
+        "max_output_tokens": 512
+    }
+)
+
+# ---------------- HEADER ----------------
+st.markdown(
+    """
+    <h1 style='text-align:center;'>🌱 FarmaBuddy</h1>
+    <h4 style='text-align:center;'>AI-Powered Smart Farming Assistant</h4>
+    <p style='text-align:center;'>Built using Gemini 1.5 | Deployed with Streamlit</p>
+    <hr>
+    """,
+    unsafe_allow_html=True
+)
+
+# ---------------- USER INPUTS ----------------
+st.sidebar.header("🌍 Farmer Inputs")
+
+region = st.sidebar.selectbox(
+    "Select Region",
+    ["India", "Ghana", "Canada"]
+)
+
+location = st.sidebar.text_input(
+    "Enter Location (State / Province)"
+)
+
+crop_stage = st.sidebar.selectbox(
+    "Crop Stage",
+    ["Planning", "Sowing", "Growing", "Harvesting"]
+)
+
+priority = st.sidebar.multiselect(
+    "Your Priorities",
+    ["Low Water Use", "High Yield", "Organic Farming", "Low Cost"]
+)
+
+temperature = st.sidebar.slider(
+    "AI Creativity Level",
+    0.2, 0.9, 0.5
+)
+
+# ---------------- PROMPT ENGINE ----------------
+def build_prompt():
+    return f"""
+You are an expert agricultural advisor.
+
+Farmer details:
+Region: {region}
+Location: {location}
+Crop stage: {crop_stage}
+Priorities: {', '.join(priority)}
+
+Task:
+1. Give 3 clear farming recommendations.
+2. Format as bullet points.
+3. After each recommendation, explain WHY it is useful.
+4. Keep language simple and practical.
+5. Avoid unsafe or misleading advice.
+"""
+
+# ---------------- MAIN ACTION ----------------
+if st.button("🌾 Get Smart Advice"):
+    if not location:
+        st.warning("Please enter your location.")
     else:
-        st.error("⚠️ API Key missing! Go to Streamlit Settings > Secrets and add GOOGLE_API_KEY.")
-        st.stop()
-except Exception as e:
-    st.error(f"❌ Connection Error: {e}")
-    st.info("Tip: Double-check your API Key in Google AI Studio and ensure it is active.")
+        with st.spinner("Consulting AI farming expert..."):
+            response = model.generate_content(build_prompt())
+            st.success("Here’s your AI-generated farming advice:")
 
-# --- 3. SIDEBAR: EDITABLE USER PROFILE (Requirement for User Interaction Monitoring) ---
-with st.sidebar:
-    st.title("👤 User Profile")
-    farmer_name = st.text_input("Farmer Name:", value="Ram Kumar Baitha")
-    farmer_location = st.text_input("Home Location:", value="Kishanganj, Bihar")
-    land_size = st.text_input("Land Size (Hectares):", value="0.25")
-    st.divider()
-    st.info("This assistant provides region-specific advice for Bihar's farmers.")
+            st.markdown(response.text)
 
-# --- 4. MAIN UI (Design and Implementation) ---
-st.title("🌾 BiharKrishi AI: Smart Farming Assistant")
-st.subheader("Solving Bihar's Flood-Drought Paradox with Generative AI")
+# ---------------- FEEDBACK CHECKLIST ----------------
+st.markdown("## ✅ AI Output Validation Checklist")
 
-# Structured input fields for accurate model context (Step 6)
-col1, col2 = st.columns(2)
-with col1:
-    location = st.text_input("Enter your District:", value="Samastipur")
-    crop_stage = st.text_input("Current Crop Stage:", value="Vegetative")
+feedback = {
+    "Region-specific advice": st.checkbox("Advice is specific to my region"),
+    "Logical reasoning": st.checkbox("Suggestions include valid reasoning"),
+    "Simple language": st.checkbox("Language is easy to understand"),
+    "Actionable steps": st.checkbox("Advice can be applied practically"),
+    "Safe & ethical": st.checkbox("No unsafe or misleading information")
+}
 
-with col2:
-    category = st.text_input("What do you need help with?", value="Diesel Cost Saving")
+if st.button("📊 Submit Feedback"):
+    score = sum(feedback.values())
+    st.info(f"Feedback Score: {score}/5")
+    st.markdown("Thank you! This helps improve AI reliability.")
 
-user_query = st.text_input("Enter your specific farming question (e.g., How to save fuel?)")
+# ---------------- USAGE LOG (LIGHT ANALYTICS) ----------------
+st.markdown("## 📈 Usage Snapshot")
 
-# --- 5. OUTPUT FORMATTING & REASONING (Step 4) ---
-if st.button("Get AI Advice"):
-    if user_query and location:
-        with st.spinner("Analyzing regional agricultural data..."):
-            # System instruction ensures outputs are formatted and justified (Step 4)
-            full_prompt = f"""
-            You are an expert Bihar agricultural consultant. 
-            User Profile: {farmer_name} from {farmer_location} with {land_size} hectares.
-            Current Query Context: District {location}, Crop Stage {crop_stage}.
-            Category: {category}.
-            Question: {user_query}
-            
-            Instructions: Provide a formatted response as per FA-2 standards:
-            1. Use a bulleted list for actionable instructions.
-            2. Include a brief 'Why' (justification) for each suggestion to build trust.
-            3. Use simple, non-technical language for a layperson.
-            """
-            
-            try:
-                response = model.generate_content(full_prompt)
-                
-                # Displaying formatted Gemini output
-                st.markdown("### 💡 Expert Recommendations")
-                st.write(response.text)
-                
-                # Feedback Monitoring (Learning Outcome for FA 2)
-                st.divider()
-                st.caption("Was this advice helpful?")
-                st.button("👍 Yes")
-                st.button("👎 No")
-                
-            except Exception as e:
-                st.error(f"Error generating content: {e}")
-    else:
-        st.warning("Please ensure you have filled in all the text fields and entered a question.")
+log_data = {
+    "Time": datetime.now().strftime("%Y-%m-%d %H:%M"),
+    "Region": region,
+    "Crop Stage": crop_stage
+}
+
+df = pd.DataFrame([log_data])
+st.dataframe(df)
+
+# ---------------- FOOTER ----------------
+st.markdown(
+    """
+    <hr>
+    <p style='text-align:center; font-size:14px;'>
+    FA-2 Project | CRS Artificial Intelligence | Generative AI<br>
+    Built responsibly for real-world farmers 🌍
+    </p>
+    """,
+    unsafe_allow_html=True
+)
+
