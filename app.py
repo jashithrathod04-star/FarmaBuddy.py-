@@ -13,13 +13,10 @@ st.set_page_config(
 # ---------------- API KEY ----------------
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-model = genai.GenerativeModel(
-    model_name="gemini-1.5-flash",
-    generation_config={
-        "temperature": 0.5,
-        "max_output_tokens": 512
-    }
-)
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+
+model = genai.GenerativeModel("gemini-pro")
+
 
 
 
