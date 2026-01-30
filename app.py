@@ -1,3 +1,6 @@
+import sys
+st.write(sys.version)
+
 import streamlit as st
 import google.generativeai as genai
 import pandas as pd
