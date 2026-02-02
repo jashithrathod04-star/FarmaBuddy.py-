@@ -87,9 +87,13 @@ if st.button("🌾 Get Smart Advice"):
             try:
                 # The new SDK expects the model ID like this:
                 response = client.models.generate_content(
-                    model="gemini-1.5-flash", 
-                    contents=build_prompt()
-                )
+    model="gemini-2.0-flash",  # Use the 2.0 version directly
+    contents=build_prompt(),
+    config={
+        "temperature": temperature,
+        "max_output_tokens": 512
+    }
+)
                 
                 st.success("Here’s your AI-generated farming advice:")
                 st.markdown(response.text)
