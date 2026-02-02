@@ -24,7 +24,11 @@ client = genai.Client(
     api_key=st.secrets["GEMINI_API_KEY"],
     http_options=types.HttpOptions(api_version="v1beta") # Change v1 to v1beta
 )
-
+# Add this temporary button to your sidebar to check names
+if st.sidebar.button("🔍 List Available Models"):
+    models = client.models.list()
+    for m in models:
+        st.sidebar.write(m.name)
 # ---------------- HEADER ----------------
 st.markdown(
     """
