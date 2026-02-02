@@ -5,7 +5,7 @@ from datetime import datetime
 from google import genai
 
 st.write(sys.version)
-st.session_state.clear()
+
 
 # ---------------- SESSION STATE ----------------
 if "quota_exhausted" not in st.session_state:
@@ -79,60 +79,45 @@ Task:
 """
 
 # ---------------- MAIN ACTION ----------------
+# ---------------- MAIN ACTION ----------------
 if st.button("🌾 Get Smart Advice"):
     if not location:
         st.warning("Please enter your location.")
+    elif st.session_state.quota_exhausted:
+        st.warning("⚠️ AI quota exhausted. Showing expert fallback advice.")
+        # ... (your fallback markdown here)
     else:
-        # 🚫 If quota already exhausted → NO API CALL
-        if st.session_state.quota_exhausted:
-            st.warning("⚠️ AI quota exhausted. Showing expert fallback advice.")
+        with st.spinner("Consulting AI farming expert..."):
+            try:
+                # Use gemini-1.5-flash if 2.0 is giving issues
+                response = client.models.generate_content(
+                    model="gemini-1.5-flash", 
+                    contents=build_prompt(),
+                    config={
+                        "temperature": temperature,
+                        "max_output_tokens": 512
+                    }
+                )
 
-            st.markdown(f"""
-- **Select crops suitable for {region}**  
-  Region-specific crops perform better under local climate and soil conditions.
-
-- **Follow best practices during the {crop_stage.lower()} stage**  
-  Each crop stage needs specific irrigation, nutrients, and care.
-
-- **Balance inputs based on priorities**  
-  Focusing on {', '.join(priority) if priority else 'sustainable practices'} improves yield and reduces waste.
-            """)
-
-            st.info("ℹ️ Fallback advice ensures uninterrupted support even when AI services are unavailable.")
-
-        else:
-            with st.spinner("Consulting AI farming expert..."):
-                try:
-                    response = client.models.generate_content(
-                        model="gemini-2.0-flash",
-                        contents=build_prompt(),
-                        config={
-                            "temperature": temperature,
-                            "max_output_tokens": 512
-                        }
-                    )
-
+                if response.text:
                     st.success("Here’s your AI-generated farming advice:")
                     st.markdown(response.text)
+                else:
+                    st.error("AI returned an empty response. Check safety filters.")
 
-                except Exception as e:
-                    # 🚨 Lock AI for rest of session
+            except Exception as e:
+                # PRINT THE ACTUAL ERROR to the console/app so you can debug
+                st.error(f"Developer Debug Info: {str(e)}")
+                
+                # Only lock quota if it's actually a quota error (429)
+                if "429" in str(e):
                     st.session_state.quota_exhausted = True
+                    st.warning("⚠️ AI quota reached.")
+                else:
+                    st.warning("⚠️ An unexpected error occurred.")
+               
 
-                    st.warning("⚠️ AI quota reached. Switching to expert fallback advice.")
-
-                    st.markdown(f"""
-- **Adopt climate-resilient farming methods**  
-  These reduce dependency on unpredictable weather conditions.
-
-- **Monitor soil health regularly**  
-  Healthy soil improves nutrient absorption and long-term productivity.
-
-- **Apply stage-specific techniques during {crop_stage.lower()}**  
-  Correct timing of irrigation and fertilization improves yield quality.
-                    """)
-
-                    st.info("ℹ️ The system automatically switches to offline guidance when AI is unavailable.")
+                
 
 # ---------------- FEEDBACK CHECKLIST ----------------
 st.markdown("## ✅ AI Output Validation Checklist")
