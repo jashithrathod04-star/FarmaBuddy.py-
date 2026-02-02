@@ -79,45 +79,27 @@ Task:
 """
 
 # ---------------- MAIN ACTION ----------------
-# ---------------- MAIN ACTION ----------------
 if st.button("🌾 Get Smart Advice"):
     if not location:
         st.warning("Please enter your location.")
-    elif st.session_state.quota_exhausted:
-        st.warning("⚠️ AI quota exhausted. Showing expert fallback advice.")
-        # ... (your fallback markdown here)
     else:
         with st.spinner("Consulting AI farming expert..."):
             try:
-                # Use gemini-1.5-flash if 2.0 is giving issues
+                # The new SDK expects the model ID like this:
                 response = client.models.generate_content(
                     model="gemini-1.5-flash", 
-                    contents=build_prompt(),
-                    config={
-                        "temperature": temperature,
-                        "max_output_tokens": 512
-                    }
+                    contents=build_prompt()
                 )
-
-                if response.text:
-                    st.success("Here’s your AI-generated farming advice:")
-                    st.markdown(response.text)
-                else:
-                    st.error("AI returned an empty response. Check safety filters.")
+                
+                st.success("Here’s your AI-generated farming advice:")
+                st.markdown(response.text)
 
             except Exception as e:
-                # PRINT THE ACTUAL ERROR to the console/app so you can debug
-                st.error(f"Developer Debug Info: {str(e)}")
+                # This helps you see if it's a permission or name issue
+                st.error(f"Connection Error: {e}")
                 
-                # Only lock quota if it's actually a quota error (429)
-                if "429" in str(e):
-                    st.session_state.quota_exhausted = True
-                    st.warning("⚠️ AI quota reached.")
-                else:
-                    st.warning("⚠️ An unexpected error occurred.")
-               
-
-                
+                # Fallback logic
+                st.session_state.quota_exhausted = True
 
 # ---------------- FEEDBACK CHECKLIST ----------------
 st.markdown("## ✅ AI Output Validation Checklist")
