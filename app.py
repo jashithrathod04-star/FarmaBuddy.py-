@@ -23,7 +23,6 @@ if "quota_exhausted" not in st.session_state:
 # In your API KEY & CLIENT section
 client = genai.Client(
     api_key=st.secrets["GEMINI_API_KEY"],
-    http_options=types.HttpOptions(api_version="v1beta") # Change from v1 to v1beta
 )
 # Add this temporary button to your sidebar to check names
 if st.sidebar.button("🔍 List Available Models"):
