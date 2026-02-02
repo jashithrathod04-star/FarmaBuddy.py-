@@ -1,7 +1,7 @@
 import sys
-import time
-import pandas as pd
+import st as st # Note: Use 'import streamlit as st' if 'st' alone causes issues
 import streamlit as st
+import pandas as pd
 from datetime import datetime
 from google import genai
 
@@ -14,16 +14,13 @@ st.set_page_config(
 
 # ---------------- SESSION STATE ----------------
 # REMOVED: st.session_state.clear() 
-# This was clearing your memory on every click, causing the "Always Quota Exceeded" loop.
+# Keeping this line causes the app to "forget" successful states or errors every rerun.
 if "quota_exhausted" not in st.session_state:
     st.session_state.quota_exhausted = False
 
 # ---------------- API KEY ----------------
-try:
-    client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
-except Exception as e:
-    st.error("API Key missing. Please check your Streamlit Secrets.")
-    st.stop()
+# Ensure your key is in .streamlit/secrets.toml
+client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 # ---------------- HEADER ----------------
 st.markdown(
@@ -87,7 +84,7 @@ if st.button("🌾 Get Smart Advice"):
     if not location:
         st.warning("Please enter your location.")
     else:
-        # 🚫 Check if quota was flagged earlier in the session
+        # Check session state for quota block
         if st.session_state.quota_exhausted:
             st.warning("⚠️ AI quota exhausted. Showing expert fallback advice.")
             st.markdown(f"""
@@ -95,13 +92,11 @@ if st.button("🌾 Get Smart Advice"):
 - **Follow best practices during the {crop_stage.lower()} stage** Each crop stage needs specific irrigation, nutrients, and care.
 - **Balance inputs based on priorities** Focusing on {', '.join(priority) if priority else 'sustainable practices'} improves yield and reduces waste.
             """)
-            st.info("ℹ️ Fallback advice ensures uninterrupted support even when AI services are unavailable.")
-
         else:
             with st.spinner("Consulting AI farming expert..."):
                 try:
-                    # FIX: Using 'gemini-1.5-flash' (standard) or 'gemini-2.0-flash'
-                    # The new SDK handles the 'models/' prefix automatically.
+                    # FIX: Using direct string name. 
+                    # If 1.5-flash still 404s, your API key might only have access to 1.5-flash-8b
                     response = client.models.generate_content(
                         model="gemini-1.5-flash", 
                         contents=build_prompt(),
@@ -115,12 +110,12 @@ if st.button("🌾 Get Smart Advice"):
                     st.markdown(response.text)
 
                 except Exception as e:
-                    # 🚨 If it's a 429 (Rate Limit), flag it for the session
+                    # Check for 429 specifically to trigger the persistent quota block
                     if "429" in str(e):
                         st.session_state.quota_exhausted = True
                         st.warning("⚠️ AI quota reached. Switching to expert fallback advice.")
                     else:
-                        # For 404 or other errors, show the debug info
+                        # Displaying 404 or other errors for debugging
                         st.error(f"Developer Debug Info: {e}")
 
                     st.markdown(f"""
@@ -128,7 +123,6 @@ if st.button("🌾 Get Smart Advice"):
 - **Monitor soil health regularly** Healthy soil improves nutrient absorption and long-term productivity.
 - **Apply stage-specific techniques during {crop_stage.lower()}** Correct timing of irrigation and fertilization improves yield quality.
                     """)
-                    st.info("ℹ️ The system automatically switches to offline guidance when AI is unavailable.")
 
 # ---------------- FEEDBACK CHECKLIST ----------------
 st.markdown("## ✅ AI Output Validation Checklist")
