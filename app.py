@@ -12,10 +12,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# ---------------- SESSION STATE ----------------
-# DO NOT CLEAR session state at the top. It wipes your quota protection.
-if "quota_exhausted" not in st.session_state:
-    st.session_state.quota_exhausted = False
+
 
 # ---------------- API KEY & CLIENT ----------------
 # We force the 'v1' stable API version to resolve the 404 issue.
@@ -95,11 +92,7 @@ if st.button("🌾 Get Smart Advice"):
 
                 except Exception as e:
                     # Capture 429 specifically for quota
-                    if "429" in str(e):
-                        st.session_state.quota_exhausted = True
-                        st.warning("⚠️ AI quota reached. Switching to fallback.")
-                    else:
-                        st.error(f"Developer Debug Info: {e}")
+                    
                     
                     # Displaying Fallback immediately upon error
                     st.markdown(f"""
