@@ -14,14 +14,16 @@ st.set_page_config(
 )
 
 # ---------------- API KEY ----------------
-
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-model = genai.GenerativeModel("gemini-1.5")
-
-
-
-
+# ---------------- MODEL CONFIG (FIXED) ----------------
+model = genai.GenerativeModel(
+    "gemini-1.5-flash",
+    generation_config=genai.GenerationConfig(
+        temperature=0.5,
+        max_output_tokens=512
+    )
+)
 
 # ---------------- HEADER ----------------
 st.markdown(
@@ -86,10 +88,14 @@ if st.button("🌾 Get Smart Advice"):
         st.warning("Please enter your location.")
     else:
         with st.spinner("Consulting AI farming expert..."):
-            response = model.generate_content(build_prompt())
-            st.success("Here’s your AI-generated farming advice:")
+            try:
+                response = model.generate_content(build_prompt())
+                st.success("Here’s your AI-generated farming advice:")
+                st.markdown(response.text)
 
-            st.markdown(response.text)
+            except Exception as e:
+                st.error("⚠️ AI service is temporarily unavailable. Please try again.")
+                st.exception(e)
 
 # ---------------- FEEDBACK CHECKLIST ----------------
 st.markdown("## ✅ AI Output Validation Checklist")
@@ -130,4 +136,3 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
