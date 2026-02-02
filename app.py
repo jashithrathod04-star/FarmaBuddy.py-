@@ -83,16 +83,14 @@ if st.button("🌾 Get Smart Advice"):
                 try:
                     # FIX: Switch to gemini-2.0-flash (The standard for 2026)
                     # Inside your try block
-                   # ---------------- MAIN ACTION ----------------
-with st.spinner("Consulting AI farming expert..."):
-    try:
-        response = client.models.generate_content(
+                    # ---------------- MAIN ACTION ----------------
+                    response = client.models.generate_content(
             model="gemini-2.5-flash", # <--- UPDATE THIS
             contents=build_prompt(),
             config={"temperature": temperature, "max_output_tokens": 512}
         )
-        st.success("Here’s your AI-generated farming advice:")
-        st.markdown(response.text)
+                    st.success("Here’s your AI-generated farming advice:")
+                    st.markdown(response.text)
  
         # Debugging and Fallback logic...
 
