@@ -5,6 +5,7 @@ from datetime import datetime
 from google import genai
 
 st.write(sys.version)
+st.session_state.clear()
 
 # ---------------- SESSION STATE ----------------
 if "quota_exhausted" not in st.session_state:
