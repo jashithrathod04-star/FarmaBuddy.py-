@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from google import genai
+from google.genai import types
 
 # ---------------- CONFIG ----------------
 st.set_page_config(
@@ -12,14 +13,16 @@ st.set_page_config(
 )
 
 # ---------------- SESSION STATE ----------------
-# REMOVED: st.session_state.clear() 
-# Keeping this line causes the app to "forget" successful states or errors every rerun.
+# DO NOT CLEAR state at the top. It wipes your quota protection.
 if "quota_exhausted" not in st.session_state:
     st.session_state.quota_exhausted = False
 
-# ---------------- API KEY ----------------
-# Ensure your key is in .streamlit/secrets.toml
-client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+# ---------------- API KEY & CLIENT ----------------
+# Force api_version="v1" to resolve the 404 NOT_FOUND issue
+client = genai.Client(
+    api_key=st.secrets["GEMINI_API_KEY"],
+    http_options=types.HttpOptions(api_version="v1")
+)
 
 # ---------------- HEADER ----------------
 st.markdown(
@@ -35,35 +38,16 @@ st.markdown(
 # ---------------- USER INPUTS ----------------
 st.sidebar.header("🌍 Farmer Inputs")
 
-region = st.sidebar.selectbox(
-    "Select Region",
-    ["India", "Ghana", "Canada"]
-)
-
-location = st.sidebar.text_input(
-    "Enter Location (State / Province)"
-)
-
-crop_stage = st.sidebar.selectbox(
-    "Crop Stage",
-    ["Planning", "Sowing", "Growing", "Harvesting"]
-)
-
-priority = st.sidebar.multiselect(
-    "Your Priorities",
-    ["Low Water Use", "High Yield", "Organic Farming", "Low Cost"]
-)
-
-temperature = st.sidebar.slider(
-    "AI Creativity Level",
-    0.2, 0.9, 0.5
-)
+region = st.sidebar.selectbox("Select Region", ["India", "Ghana", "Canada"])
+location = st.sidebar.text_input("Enter Location (State / Province)")
+crop_stage = st.sidebar.selectbox("Crop Stage", ["Planning", "Sowing", "Growing", "Harvesting"])
+priority = st.sidebar.multiselect("Your Priorities", ["Low Water Use", "High Yield", "Organic Farming", "Low Cost"])
+temperature = st.sidebar.slider("AI Creativity Level", 0.2, 0.9, 0.5)
 
 # ---------------- PROMPT ENGINE ----------------
 def build_prompt():
     return f"""
 You are an expert agricultural advisor.
-
 Farmer details:
 Region: {region}
 Location: {location}
@@ -75,7 +59,6 @@ Task:
 2. Format as bullet points.
 3. After each recommendation, explain WHY it is useful.
 4. Keep language simple and practical.
-5. Avoid unsafe or misleading advice.
 """
 
 # ---------------- MAIN ACTION ----------------
@@ -83,49 +66,38 @@ if st.button("🌾 Get Smart Advice"):
     if not location:
         st.warning("Please enter your location.")
     else:
-        # Check session state for quota block
         if st.session_state.quota_exhausted:
             st.warning("⚠️ AI quota exhausted. Showing expert fallback advice.")
             st.markdown(f"""
-- **Select crops suitable for {region}** Region-specific crops perform better under local climate and soil conditions.
-- **Follow best practices during the {crop_stage.lower()} stage** Each crop stage needs specific irrigation, nutrients, and care.
-- **Balance inputs based on priorities** Focusing on {', '.join(priority) if priority else 'sustainable practices'} improves yield and reduces waste.
+- **Select crops suitable for {region}** Local varieties thrive in specific soil types.
+- **Follow best practices during the {crop_stage.lower()} stage** Stage-specific care is vital.
+- **Prioritize {', '.join(priority) if priority else 'sustainability'}** This ensures long-term farm health.
             """)
         else:
             with st.spinner("Consulting AI farming expert..."):
                 try:
-                    # FIX: Using direct string name. 
-                    # If 1.5-flash still 404s, your API key might only have access to 1.5-flash-8b
+                    # UPDATED MODEL NAME TO 2.0 FLASH
                     response = client.models.generate_content(
-                        model="gemini-1.5-flash", 
+                        model="gemini-2.0-flash", 
                         contents=build_prompt(),
-                        config={
-                            "temperature": temperature,
-                            "max_output_tokens": 512
-                        }
+                        config={"temperature": temperature, "max_output_tokens": 512}
                     )
-
                     st.success("Here’s your AI-generated farming advice:")
                     st.markdown(response.text)
 
                 except Exception as e:
-                    # Check for 429 specifically to trigger the persistent quota block
+                    # Check for 429 specifically
                     if "429" in str(e):
                         st.session_state.quota_exhausted = True
-                        st.warning("⚠️ AI quota reached. Switching to expert fallback advice.")
+                        st.warning("⚠️ AI quota reached. Switching to fallback.")
                     else:
-                        # Displaying 404 or other errors for debugging
                         st.error(f"Developer Debug Info: {e}")
-
-                    st.markdown(f"""
-- **Adopt climate-resilient farming methods** These reduce dependency on unpredictable weather conditions.
-- **Monitor soil health regularly** Healthy soil improves nutrient absorption and long-term productivity.
-- **Apply stage-specific techniques during {crop_stage.lower()}** Correct timing of irrigation and fertilization improves yield quality.
-                    """)
+                    
+                    # Manual Fallback Display
+                    st.markdown("- **Adopt climate-resilient methods.**\n- **Monitor soil health.**")
 
 # ---------------- FEEDBACK CHECKLIST ----------------
 st.markdown("## ✅ AI Output Validation Checklist")
-
 feedback = {
     "Region-specific advice": st.checkbox("Advice is specific to my region"),
     "Logical reasoning": st.checkbox("Suggestions include valid reasoning"),
@@ -137,28 +109,11 @@ feedback = {
 if st.button("📊 Submit Feedback"):
     score = sum(feedback.values())
     st.info(f"Feedback Score: {score}/5")
-    st.markdown("Thank you! This helps improve AI reliability.")
 
 # ---------------- USAGE LOG ----------------
 st.markdown("## 📈 Usage Snapshot")
-
-log_data = {
-    "Time": datetime.now().strftime("%Y-%m-%d %H:%M"),
-    "Region": region,
-    "Crop Stage": crop_stage
-}
-
-df = pd.DataFrame([log_data])
-st.dataframe(df)
+log_data = {"Time": datetime.now().strftime("%Y-%m-%d %H:%M"), "Region": region, "Crop Stage": crop_stage}
+st.dataframe(pd.DataFrame([log_data]))
 
 # ---------------- FOOTER ----------------
-st.markdown(
-    """
-    <hr>
-    <p style='text-align:center; font-size:14px;'>
-    FA-2 Project | CRS Artificial Intelligence | Generative AI<br>
-    Built responsibly for real-world farmers 🌍
-    </p>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("<hr><p style='text-align:center; font-size:14px;'>FA-2 Project | 2026</p>", unsafe_allow_html=True)
