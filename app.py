@@ -77,7 +77,7 @@ if st.button("🌾 Get Smart Advice"):
                 try:
                     # FIX: Switch to gemini-2.0-flash (The standard for 2026)
                     response = client.models.generate_content(
-                        model="gemini-1.5-flash", 
+                        model="gemini-1.5", 
                         contents=build_prompt(),
                         config={"temperature": temperature, "max_output_tokens": 512}
                     )
