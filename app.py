@@ -83,13 +83,18 @@ if st.button("🌾 Get Smart Advice"):
                 try:
                     # FIX: Switch to gemini-2.0-flash (The standard for 2026)
                     # Inside your try block
-                    response = client.models.generate_content(
-    model="gemini-1.5-flash-002",  # Specifying the version often bypasses 404s
-    contents=build_prompt(),
-    config={"temperature": temperature, "max_output_tokens": 512}
-)
-                    st.success("Here’s your AI-generated farming advice:")
-                    st.markdown(response.text)
+                   # ---------------- MAIN ACTION ----------------
+with st.spinner("Consulting AI farming expert..."):
+    try:
+        response = client.models.generate_content(
+            model="gemini-2.5-flash", # <--- UPDATE THIS
+            contents=build_prompt(),
+            config={"temperature": temperature, "max_output_tokens": 512}
+        )
+        st.success("Here’s your AI-generated farming advice:")
+        st.markdown(response.text)
+ 
+        # Debugging and Fallback logic...
 
                 except Exception as e:
                     # Capture 429 specifically for quota
