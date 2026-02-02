@@ -19,9 +19,10 @@ if "quota_exhausted" not in st.session_state:
 
 # ---------------- API KEY & CLIENT ----------------
 # We force the 'v1' stable API version to resolve the 404 issue.
+# Change this in your CONFIG section
 client = genai.Client(
     api_key=st.secrets["GEMINI_API_KEY"],
-    http_options=types.HttpOptions(api_version="v1")
+    http_options=types.HttpOptions(api_version="v1beta") # Change v1 to v1beta
 )
 
 # ---------------- HEADER ----------------
@@ -77,7 +78,7 @@ if st.button("🌾 Get Smart Advice"):
                 try:
                     # FIX: Switch to gemini-2.0-flash (The standard for 2026)
                     response = client.models.generate_content(
-                        model="gemini-1.5-pro", 
+                        model="gemini-2.0-flash", 
                         contents=build_prompt(),
                         config={"temperature": temperature, "max_output_tokens": 512}
                     )
