@@ -16,9 +16,9 @@ st.set_page_config(
 # ---------------- API KEY ----------------
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-# ---------------- MODEL CONFIG (FIXED) ----------------
+# ---------------- MODEL (v1beta COMPATIBLE) ----------------
 model = genai.GenerativeModel(
-    "gemini-1.5-flash",
+    "gemini-pro",
     generation_config=genai.GenerationConfig(
         temperature=0.5,
         max_output_tokens=512
@@ -30,7 +30,7 @@ st.markdown(
     """
     <h1 style='text-align:center;'>🌱 FarmaBuddy</h1>
     <h4 style='text-align:center;'>AI-Powered Smart Farming Assistant</h4>
-    <p style='text-align:center;'>Built using Gemini 1.5 | Deployed with Streamlit</p>
+    <p style='text-align:center;'>Built using Gemini | Deployed with Streamlit</p>
     <hr>
     """,
     unsafe_allow_html=True
@@ -113,7 +113,7 @@ if st.button("📊 Submit Feedback"):
     st.info(f"Feedback Score: {score}/5")
     st.markdown("Thank you! This helps improve AI reliability.")
 
-# ---------------- USAGE LOG (LIGHT ANALYTICS) ----------------
+# ---------------- USAGE LOG ----------------
 st.markdown("## 📈 Usage Snapshot")
 
 log_data = {
