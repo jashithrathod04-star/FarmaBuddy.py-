@@ -1,8 +1,8 @@
 import sys
 import streamlit as st
-import google.generativeai as genai
 import pandas as pd
 from datetime import datetime
+from google import genai
 
 st.write(sys.version)
 
@@ -14,16 +14,7 @@ st.set_page_config(
 )
 
 # ---------------- API KEY ----------------
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-
-# ---------------- MODEL (v1beta COMPATIBLE) ----------------
-model = genai.GenerativeModel(
-    "gemini-pro",
-    generation_config=genai.GenerationConfig(
-        temperature=0.5,
-        max_output_tokens=512
-    )
-)
+client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 # ---------------- HEADER ----------------
 st.markdown(
@@ -89,12 +80,20 @@ if st.button("🌾 Get Smart Advice"):
     else:
         with st.spinner("Consulting AI farming expert..."):
             try:
-                response = model.generate_content(build_prompt())
+                response = client.models.generate_content(
+                    model="gemini-2.0-flash",
+                    contents=build_prompt(),
+                    config={
+                        "temperature": temperature,
+                        "max_output_tokens": 512
+                    }
+                )
+
                 st.success("Here’s your AI-generated farming advice:")
                 st.markdown(response.text)
 
             except Exception as e:
-                st.error("⚠️ AI service is temporarily unavailable. Please try again.")
+                st.error("⚠️ AI service error. Please try again later.")
                 st.exception(e)
 
 # ---------------- FEEDBACK CHECKLIST ----------------
