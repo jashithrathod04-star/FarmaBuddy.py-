@@ -13,12 +13,12 @@ st.set_page_config(
 )
 
 # ---------------- SESSION STATE ----------------
-# DO NOT CLEAR state at the top. It wipes your quota protection.
+# DO NOT CLEAR session state at the top. It wipes your quota protection.
 if "quota_exhausted" not in st.session_state:
     st.session_state.quota_exhausted = False
 
 # ---------------- API KEY & CLIENT ----------------
-# Force api_version="v1" to resolve the 404 NOT_FOUND issue
+# We force the 'v1' stable API version to resolve the 404 issue.
 client = genai.Client(
     api_key=st.secrets["GEMINI_API_KEY"],
     http_options=types.HttpOptions(api_version="v1")
@@ -37,7 +37,6 @@ st.markdown(
 
 # ---------------- USER INPUTS ----------------
 st.sidebar.header("🌍 Farmer Inputs")
-
 region = st.sidebar.selectbox("Select Region", ["India", "Ghana", "Canada"])
 location = st.sidebar.text_input("Enter Location (State / Province)")
 crop_stage = st.sidebar.selectbox("Crop Stage", ["Planning", "Sowing", "Growing", "Harvesting"])
@@ -76,7 +75,7 @@ if st.button("🌾 Get Smart Advice"):
         else:
             with st.spinner("Consulting AI farming expert..."):
                 try:
-                    # UPDATED MODEL NAME TO 2.0 FLASH
+                    # FIX: Switch to gemini-2.0-flash (The standard for 2026)
                     response = client.models.generate_content(
                         model="gemini-2.0-flash", 
                         contents=build_prompt(),
@@ -86,15 +85,19 @@ if st.button("🌾 Get Smart Advice"):
                     st.markdown(response.text)
 
                 except Exception as e:
-                    # Check for 429 specifically
+                    # Capture 429 specifically for quota
                     if "429" in str(e):
                         st.session_state.quota_exhausted = True
                         st.warning("⚠️ AI quota reached. Switching to fallback.")
                     else:
                         st.error(f"Developer Debug Info: {e}")
                     
-                    # Manual Fallback Display
-                    st.markdown("- **Adopt climate-resilient methods.**\n- **Monitor soil health.**")
+                    # Displaying Fallback immediately upon error
+                    st.markdown(f"""
+- **Adopt climate-resilient methods.** These reduce dependency on unpredictable weather.
+- **Monitor soil health regularly.** Healthy soil improves nutrient absorption.
+- **Apply stage-specific techniques during {crop_stage.lower()}.** Correct timing improves yield.
+                    """)
 
 # ---------------- FEEDBACK CHECKLIST ----------------
 st.markdown("## ✅ AI Output Validation Checklist")
