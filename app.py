@@ -64,39 +64,14 @@ if st.button("🌾 Get Smart Advice"):
     if not location:
         st.warning("Please enter your location.")
     else:
-        if st.session_state.quota_exhausted:
-            st.warning("⚠️ AI quota exhausted. Showing expert fallback advice.")
-            st.markdown(f"""
-- **Select crops suitable for {region}** Local varieties thrive in specific soil types.
-- **Follow best practices during the {crop_stage.lower()} stage** Stage-specific care is vital.
-- **Prioritize {', '.join(priority) if priority else 'sustainability'}** This ensures long-term farm health.
-            """)
-        else:
-            with st.spinner("Consulting AI farming expert..."):
-                try:
-                    # FIX: Switch to gemini-2.0-flash (The standard for 2026)
-                    # Inside your try block
-                    # ---------------- MAIN ACTION ----------------
-                    response = client.models.generate_content(
-            model="gemini-3-flash-preview",                # <--- UPDATE THIS
-            contents=build_prompt(),
-            config={"temperature": temperature, "max_output_tokens": 512}
+        response = client.models.generate_content(
+        model="gemini-3-flash-preview",                # <--- UPDATE THIS
+        contents=build_prompt(),
+        config={"temperature": temperature, "max_output_tokens": 512}
         )
-                    st.success("Here’s your AI-generated farming advice:")
-                    st.markdown(response.text)
+        st.success("Here’s your AI-generated farming advice:")
+        st.markdown(response.text)
  
-        # Debugging and Fallback logic...
-
-                except Exception as e:
-                    # Capture 429 specifically for quota
-                    
-                    
-                    # Displaying Fallback immediately upon error
-                    st.markdown(f"""
-- **Adopt climate-resilient methods.** These reduce dependency on unpredictable weather.
-- **Monitor soil health regularly.** Healthy soil improves nutrient absorption.
-- **Apply stage-specific techniques during {crop_stage.lower()}.** Correct timing improves yield.
-                    """)
 
 # ---------------- FEEDBACK CHECKLIST ----------------
 st.markdown("## ✅ AI Output Validation Checklist")
