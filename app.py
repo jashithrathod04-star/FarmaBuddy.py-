@@ -81,8 +81,7 @@ if st.button("🌾 Get Smart Advice"):
                     # Inside your try block
                     # ---------------- MAIN ACTION ----------------
                     response = client.models.generate_content(
-            model="gemini-3-flash-preview
-", # <--- UPDATE THIS
+            model="gemini-3-flash-preview",                # <--- UPDATE THIS
             contents=build_prompt(),
             config={"temperature": temperature, "max_output_tokens": 512}
         )
