@@ -32,7 +32,7 @@ st.markdown("""
 
 /* Main background */
 .stApp {
-    background-color: #F4FFF7;
+    background-color: #0d0552;
 }
 
 /* Sidebar */
