@@ -69,7 +69,7 @@ h1, h2, h3, h4 {
 /* Tabs */
 button[data-baseweb="tab"] {
     background-color: #3333f5;
-    color: #1B5E20;
+    color: #c1e3c3;
     font-weight: 600;
     border-radius: 8px;
     margin-right: 4px;
