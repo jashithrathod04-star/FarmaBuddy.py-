@@ -76,9 +76,10 @@ st.markdown(
 
 
 # ---------------- TABS ----------------
-tab_advice, tab_feedback = st.tabs(
-    ["🌾 Farming Advice", "📊 Feedback","Usage Snapshot"]
+tab_advice, tab_feedback, tab_usage = st.tabs(
+    ["🌾 Farming Advice", "📊 Feedback", "📈 Usage Snapshot"]
 )
+
 
 # ---------------- USER INPUTS ----------------
 st.sidebar.header("🌍 Farmer Inputs")
@@ -140,11 +141,23 @@ with tab_feedback:
 
 
 # ---------------- USAGE LOG ----------------
-with tab_Usage:
-
+with tab_usage:
     st.markdown("## 📈 Usage Snapshot")
-    log_data = {"Time": datetime.now().strftime("%Y-%m-%d %H:%M"), "Region": region, "Crop Stage": crop_stage}
-    st.dataframe(pd.DataFrame([log_data]))
+
+    usage_data = {
+        "Farmer Name": st.session_state.farmer_name,
+        "Location": st.session_state.farmer_location,
+        "Region": region,
+        "Crop Stage": crop_stage,
+        "Time": datetime.now().strftime("%Y-%m-%d %H:%M")
+    }
+
+    st.dataframe(pd.DataFrame([usage_data]))
+
+    st.info(
+        "This snapshot helps track how farmers are using FarmaBuddy over time."
+    )
+
 
 # ---------------- FOOTER ----------------
 st.markdown("<hr><p style='text-align:center; font-size:14px;'>FA-2 Project | 2026</p>", unsafe_allow_html=True)
