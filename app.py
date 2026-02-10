@@ -74,6 +74,12 @@ st.markdown(
 )
 
 
+
+# ---------------- TABS ----------------
+tab_advice, tab_feedback = st.tabs(
+    ["🌾 Farming Advice", "📊 Feedback"]
+)
+
 # ---------------- USER INPUTS ----------------
 st.sidebar.header("🌍 Farmer Inputs")
 region = st.sidebar.selectbox("Select Region", ["India", "Ghana", "Canada"])
@@ -100,32 +106,38 @@ Task:
 """
 
 # ---------------- MAIN ACTION ----------------
-if st.button("🌾 Get Smart Advice"):
-    if not location:
-        st.warning("Please enter your location.")
-    else:
-        response = client.models.generate_content(
-        model="gemini-3-flash-preview",                # <--- UPDATE THIS
-        contents=build_prompt(),
-        config={"temperature": temperature, "max_output_tokens": 512}
-        )
-        st.success("Here’s your AI-generated farming advice:")
-        st.markdown(response.text)
+with tab_advice:
+    # ---------------- MAIN ACTION ----------------
+    if st.button("🌾 Get Smart Advice"):
+        if not location:
+            st.warning("Please enter your location.")
+        else:
+            response = client.models.generate_content(
+                model="gemini-3-flash-preview",
+                contents=build_prompt(),
+                config={"temperature": temperature, "max_output_tokens": 512}
+            )
+            st.success("Here’s your AI-generated farming advice:")
+            st.markdown(response.text)
+
  
 
 # ---------------- FEEDBACK CHECKLIST ----------------
-st.markdown("## ✅ AI Output Validation Checklist")
-feedback = {
-    "Region-specific advice": st.checkbox("Advice is specific to my region"),
-    "Logical reasoning": st.checkbox("Suggestions include valid reasoning"),
-    "Simple language": st.checkbox("Language is easy to understand"),
-    "Actionable steps": st.checkbox("Advice can be applied practically"),
-    "Safe & ethical": st.checkbox("No unsafe or misleading information")
-}
+with tab_feedback:
+    st.markdown("## ✅ AI Output Validation Checklist")
 
-if st.button("📊 Submit Feedback"):
-    score = sum(feedback.values())
-    st.info(f"Feedback Score: {score}/5")
+    feedback = {
+        "Region-specific advice": st.checkbox("Advice is specific to my region"),
+        "Logical reasoning": st.checkbox("Suggestions include valid reasoning"),
+        "Simple language": st.checkbox("Language is easy to understand"),
+        "Actionable steps": st.checkbox("Advice can be applied practically"),
+        "Safe & ethical": st.checkbox("No unsafe or misleading information")
+    }
+
+    if st.button("📊 Submit Feedback"):
+        score = sum(feedback.values())
+        st.success(f"Feedback Score: {score}/5")
+
 
 # ---------------- USAGE LOG ----------------
 st.markdown("## 📈 Usage Snapshot")
