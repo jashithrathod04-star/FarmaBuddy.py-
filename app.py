@@ -18,9 +18,7 @@ if "farmer_location" not in st.session_state:
 
 
 
-# ---------------- DARK MODE STATE ----------------
-if "dark_mode" not in st.session_state:
-    st.session_state.dark_mode = False
+
 
 
 # ---------------- CONFIG ----------------
@@ -34,119 +32,131 @@ st.set_page_config(
 
 # ---------------- CUSTOM STYLING ----------------
 # ---------------- CUSTOM STYLING ----------------
-
-
-
-
-
-
-
-
-# ---------------- THEME STYLING ----------------
-st.markdown(f"""
+st.markdown("""
 <style>
 
-/* ================= LIGHT MODE ================= */
-{""
-if st.session_state.dark_mode else
-"""
-.stApp {{
-    background-color: #043d75;
-    color: #eaf4ff;
-}}
-
-section[data-testid="stSidebar"] {{
-    background-color: #2E7D32;
-}}
-
-section[data-testid="stSidebar"] * {{
-    color: white;
-}}
-
-h1, h2, h3, h4 {{
-    color: #c1e3c3;
-}}
-
-.stButton > button {{
-    background-color: #66BB6A;
-    color: white;
-    border-radius: 10px;
-    font-weight: bold;
-}}
-
-button[data-baseweb="tab"] {{
-    background-color: #3333f5;
-    color: #c1e3c3;
-}}
-
-button[data-baseweb="tab"][aria-selected="true"] {{
-    background-color: #A5D6A7;
-    color: #1B5E20;
-}}
-
-div[data-testid="stSuccess"] {{
-    background-color: #C8E6C9;
-    color: #1B5E20;
-}}
-
-div[data-testid="stInfo"] {{
-    background-color: #E3F2FD;
-    color: #0D47A1;
-}}
-"""
+/* App background */
+.stApp {
+    background-color: #F4FFF7;
 }
 
-/* ================= DARK MODE ================= */
-{""
-if not st.session_state.dark_mode else
-"""
-.stApp {{
-    background-color: #0B1220;
-    color: #E5E7EB;
-}}
-
-section[data-testid="stSidebar"] {{
-    background-color: #121826;
-}}
-
-section[data-testid="stSidebar"] * {{
-    color: #E5E7EB;
-}}
-
-h1, h2, h3, h4 {{
-    color: #A7F3D0;
-}}
-
-.stButton > button {{
-    background-color: #1F7A4D;
+/* Dashboard header */
+.dashboard-header {
+    background: linear-gradient(90deg, #2E7D32, #66BB6A);
+    padding: 20px 30px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
     color: white;
-}}
+}
 
-button[data-baseweb="tab"] {{
-    background-color: #1E293B;
-    color: #CBD5E1;
-}}
+.dashboard-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
-button[data-baseweb="tab"][aria-selected="true"] {{
-    background-color: #1F7A4D;
+.dashboard-icon {
+    font-size: 3rem;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 2.2rem;
     color: white;
-}}
+}
 
-div[data-testid="stSuccess"] {{
-    background-color: #064E3B;
-    color: #ECFDF5;
-}}
+.dashboard-header p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.95;
+}
 
-div[data-testid="stInfo"] {{
-    background-color: #1E293B;
-    color: #E5E7EB;
-}}
-"""
+.dashboard-right {
+    text-align: right;
+    font-size: 0.95rem;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
+
+
+st.markdown("""
+<style>
+
+/* Main background */
+.stApp {
+    background-color: #043d75;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #2E7D32;
+    color: white;
+}
+
+/* Sidebar text */
+section[data-testid="stSidebar"] * {
+    color: white;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    color: #1B5E20;
+}
+
+/* Buttons */
+.stButton > button {
+    background-color: #66BB6A;
+    color: white;
+    border-radius: 10px;
+    padding: 0.6em 1.2em;
+    font-weight: bold;
+    border: none;
+}
+
+.stButton > button:hover {
+    background-color: #388E3C;
+    color: white;
+}
+
+/* Tabs */
+button[data-baseweb="tab"] {
+    background-color: #3333f5;
+    color: #c1e3c3;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-right: 4px;
+}
+
+button[data-baseweb="tab"][aria-selected="true"] {
+    background-color: #A5D6A7;
+    color: #1B5E20;
+}
+
+/* Success, info boxes */
+div[data-testid="stSuccess"] {
+    background-color: #C8E6C9;
+    color: #1B5E20;
+}
+
+div[data-testid="stInfo"] {
+    background-color: #E3F2FD;
+    color: #0D47A1;
+}
+
+/* Dataframe container */
+.stDataFrame {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 
 
@@ -170,7 +180,7 @@ if not st.session_state.signed_up:
         unsafe_allow_html=True
     )
 
-    farmer_name = st.text_input("👨‍🌾 Farmer Name")
+    farmer_name = st.text_input("👨🌾 Farmer Name")
     farmer_location = st.text_input("📍 Village / City / State")
 
     if st.button("✅ Sign Up"):
@@ -187,16 +197,6 @@ if not st.session_state.signed_up:
 
 
 # ---------------- HEADER ----------------
-
-
-# ---------------- DARK MODE TOGGLE ----------------
-toggle_col1, toggle_col2 = st.columns([9, 1])
-
-with toggle_col2:
-    if st.button("🌙" if not st.session_state.dark_mode else "☀️"):
-        st.session_state.dark_mode = not st.session_state.dark_mode
-        st.rerun()
-
 # ---------------- DASHBOARD HEADER ----------------
 st.markdown(f"""
 <div class="dashboard-header">
@@ -208,7 +208,7 @@ st.markdown(f"""
         </div>
     </div>
     <div class="dashboard-right">
-        <p>👨‍🌾 Farmer: <strong>{st.session_state.farmer_name}</strong></p>
+        <p>👨🌾 Farmer: <strong>{st.session_state.farmer_name}</strong></p>
         <p>📍 Location: <strong>{st.session_state.farmer_location}</strong></p>
     </div>
 </div>
