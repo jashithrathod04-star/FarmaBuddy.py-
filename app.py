@@ -54,7 +54,7 @@ h1, h2, h3, h4 {
 /* Buttons */
 .stButton > button {
     background-color: #66BB6A;
-    color: white;
+    color: blue;
     border-radius: 10px;
     padding: 0.6em 1.2em;
     font-weight: bold;
