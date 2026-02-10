@@ -53,12 +53,12 @@ Crop stage: {crop_stage}
 Priorities: {', '.join(priority)}
 
 Task:
-1. List the crops that can be grown.
+1. Give 3 clear farming recommendations.
 2. Format as bullet points.
 3. After each recommendation, explain WHY it is useful.
 4. Keep language simple and practical.
-5.Give names of suitable crops.
 """
+
 
 
 # ---------------- MAIN ACTION ----------------
