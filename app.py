@@ -53,7 +53,7 @@ Crop stage: {crop_stage}
 Priorities: {', '.join(priority)}
 
 Task:
-1. Give 3 clear farming recommendations.
+1. Give Water useage tips.
 2. Format as bullet points.
 3. After each recommendation, explain WHY it is useful.
 4. Keep language simple and practical.
