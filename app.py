@@ -218,9 +218,10 @@ st.markdown(f"""
 
 
 # ---------------- TABS ----------------
-tab_advice, tab_feedback, tab_usage = st.tabs(
-    ["🌾 Farming Advice", "📊 Feedback", "📈 Usage Snapshot"]
+tab_advice, tab_feedback, tab_usage, tab_settings = st.tabs(
+    ["🌾 Farming Advice", "📊 Feedback", "📈 Usage Snapshot", "⚙️ Settings"]
 )
+
 
 
 # ---------------- USER INPUTS ----------------
@@ -300,6 +301,30 @@ with tab_usage:
         "This snapshot helps track how farmers are using FarmaBuddy over time."
     )
 
+
+
+# ---------------- SETTINGS TAB ----------------
+with tab_settings:
+    st.markdown("## ⚙️ App Settings")
+
+    st.markdown("### 👨‍🌾 Farmer Profile")
+    st.info(
+        f"""
+        **Name:** {st.session_state.farmer_name}  
+        **Location:** {st.session_state.farmer_location}
+        """
+    )
+
+    st.markdown("---")
+
+    st.markdown("### 🚪 Account Actions")
+
+    if st.button("Sign Out"):
+        st.session_state.signed_up = False
+        st.session_state.farmer_name = ""
+        st.session_state.farmer_location = ""
+        st.success("You have been signed out successfully.")
+        st.rerun()
 
 # ---------------- FOOTER ----------------
 st.markdown("<hr><p style='text-align:center; font-size:14px;'>FA-2 Project | 2026</p>", unsafe_allow_html=True)
