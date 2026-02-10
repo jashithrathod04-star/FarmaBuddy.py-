@@ -5,6 +5,18 @@ from datetime import datetime
 from google import genai
 from google.genai import types
 
+
+# ---------------- SESSION STATE INIT ----------------
+if "signed_up" not in st.session_state:
+    st.session_state.signed_up = False
+
+if "farmer_name" not in st.session_state:
+    st.session_state.farmer_name = ""
+
+if "farmer_location" not in st.session_state:
+    st.session_state.farmer_location = ""
+
+
 # ---------------- CONFIG ----------------
 st.set_page_config(
     page_title="FarmaBuddy 🌱",
@@ -23,16 +35,44 @@ client = genai.Client(
 )
 # Add this temporary button to your sidebar to check names
 
+if not st.session_state.signed_up:
+    st.markdown(
+        """
+        <h1 style='text-align:center;'>🌱 FarmaBuddy Sign Up</h1>
+        <p style='text-align:center;'>Welcome! Please enter your details to continue.</p>
+        <hr>
+        """,
+        unsafe_allow_html=True
+    )
+
+    farmer_name = st.text_input("👨‍🌾 Farmer Name")
+    farmer_location = st.text_input("📍 Village / City / State")
+
+    if st.button("✅ Sign Up"):
+        if farmer_name and farmer_location:
+            st.session_state.farmer_name = farmer_name
+            st.session_state.farmer_location = farmer_location
+            st.session_state.signed_up = True
+            st.rerun()
+        else:
+            st.warning("Please fill in all fields.")
+
+    st.stop()   # ⛔ Prevents rest of app from loading
+
+
+
 # ---------------- HEADER ----------------
 st.markdown(
-    """
+    f"""
     <h1 style='text-align:center;'>🌱 FarmaBuddy</h1>
-    <h4 style='text-align:center;'>AI-Powered Smart Farming Assistant</h4>
-    <p style='text-align:center;'>Built using Gemini | Deployed with Streamlit</p>
+    <h4 style='text-align:center;'>Welcome, {st.session_state.farmer_name} 👋</h4>
+    <p style='text-align:center;'>Location: {st.session_state.farmer_location}</p>
+    <p style='text-align:center;'>AI-Powered Smart Farming Assistant</p>
     <hr>
     """,
     unsafe_allow_html=True
 )
+
 
 # ---------------- USER INPUTS ----------------
 st.sidebar.header("🌍 Farmer Inputs")
