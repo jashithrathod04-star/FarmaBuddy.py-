@@ -27,6 +27,59 @@ st.set_page_config(
 
 
 # ---------------- CUSTOM STYLING ----------------
+# ---------------- CUSTOM STYLING ----------------
+st.markdown("""
+<style>
+
+/* App background */
+.stApp {
+    background-color: #F4FFF7;
+}
+
+/* Dashboard header */
+.dashboard-header {
+    background: linear-gradient(90deg, #2E7D32, #66BB6A);
+    padding: 20px 30px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.dashboard-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.dashboard-icon {
+    font-size: 3rem;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    color: white;
+}
+
+.dashboard-header p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.95;
+}
+
+.dashboard-right {
+    text-align: right;
+    font-size: 0.95rem;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+
 st.markdown("""
 <style>
 
@@ -140,16 +193,23 @@ if not st.session_state.signed_up:
 
 
 # ---------------- HEADER ----------------
-st.markdown(
-    f"""
-    <h1 style='text-align:center;'>🌱 FarmaBuddy</h1>
-    <h4 style='text-align:center;'>Welcome, {st.session_state.farmer_name} 👋</h4>
-    <p style='text-align:center;'>Location: {st.session_state.farmer_location}</p>
-    <p style='text-align:center;'>AI-Powered Smart Farming Assistant</p>
-    <hr>
-    """,
-    unsafe_allow_html=True
-)
+# ---------------- DASHBOARD HEADER ----------------
+st.markdown(f"""
+<div class="dashboard-header">
+    <div class="dashboard-left">
+        <span class="dashboard-icon">🌱</span>
+        <div>
+            <h1>FarmaBuddy</h1>
+            <p>AI-Powered Smart Farming Assistant</p>
+        </div>
+    </div>
+    <div class="dashboard-right">
+        <p>👨‍🌾 Farmer: <strong>{st.session_state.farmer_name}</strong></p>
+        <p>📍 Location: <strong>{st.session_state.farmer_location}</strong></p>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
 
 
 
