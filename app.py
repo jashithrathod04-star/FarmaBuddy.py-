@@ -77,7 +77,7 @@ st.markdown(
 
 # ---------------- TABS ----------------
 tab_advice, tab_feedback = st.tabs(
-    ["🌾 Farming Advice", "📊 Feedback"]
+    ["🌾 Farming Advice", "📊 Feedback","Usage Snapshot"]
 )
 
 # ---------------- USER INPUTS ----------------
@@ -140,9 +140,11 @@ with tab_feedback:
 
 
 # ---------------- USAGE LOG ----------------
-st.markdown("## 📈 Usage Snapshot")
-log_data = {"Time": datetime.now().strftime("%Y-%m-%d %H:%M"), "Region": region, "Crop Stage": crop_stage}
-st.dataframe(pd.DataFrame([log_data]))
+with tab_Usage:
+
+    st.markdown("## 📈 Usage Snapshot")
+    log_data = {"Time": datetime.now().strftime("%Y-%m-%d %H:%M"), "Region": region, "Crop Stage": crop_stage}
+    st.dataframe(pd.DataFrame([log_data]))
 
 # ---------------- FOOTER ----------------
 st.markdown("<hr><p style='text-align:center; font-size:14px;'>FA-2 Project | 2026</p>", unsafe_allow_html=True)
