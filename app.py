@@ -54,7 +54,7 @@ h1, h2, h3, h4 {
 /* Buttons */
 .stButton > button {
     background-color: #66BB6A;
-    color: blue;
+    color: white;
     border-radius: 10px;
     padding: 0.6em 1.2em;
     font-weight: bold;
@@ -68,7 +68,7 @@ h1, h2, h3, h4 {
 
 /* Tabs */
 button[data-baseweb="tab"] {
-    background-color: #E8F5E9;
+    background-color: #3333f5;
     color: #1B5E20;
     font-weight: 600;
     border-radius: 8px;
