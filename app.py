@@ -45,41 +45,18 @@ temperature = st.sidebar.slider("AI Creativity Level", 0.2, 0.9, 0.5)
 # ---------------- PROMPT ENGINE ----------------
 def build_prompt():
     return f"""
-You are an expert agricultural advisor with experience in sustainable and climate-smart farming.
+You are an expert agricultural advisor.
+Farmer details:
+Region: {region}
+Location: {location}
+Crop stage: {crop_stage}
+Priorities: {', '.join(priority)}
 
-Farmer Profile:
-- Region: {region}
-- Location: {location}
-- Farm size: {farm_size}
-- Soil type: {soil_type}
-- Water availability: {water_source}
-- Farming method: {farming_method}
-- Crop stage: {crop_stage}
-- Previous crop: {previous_crop if previous_crop else "Not specified"}
-- Current risks: {', '.join(risk_factors) if risk_factors else "None reported"}
-- Farmer priorities: {', '.join(priority)}
-
-Task Instructions:
-1. Provide **3 highly practical farming recommendations**.
-2. Each recommendation must include:
-   - What to do
-   - Why it is useful (scientific or practical reasoning)
-   - Any precautions or limitations
-3. Ensure advice is:
-   - Region-appropriate
-   - Cost-aware
-   - Safe and ethical
-4. Avoid overly technical terms.
-5. Use bullet points and short paragraphs.
-6. Do NOT suggest chemicals if the farming method is Organic or Natural.
-
-Optional Bonus:
-If possible, suggest one **low-cost innovation or best practice** suitable for small farmers.
-
-Output format:
-• Recommendation  
-  – Why it helps  
-  – How to apply safely
+Task:
+1. Give 3 clear farming recommendations.
+2. Format as bullet points.
+3. After each recommendation, explain WHY it is useful.
+4. Keep language simple and practical.
 """
 
 
