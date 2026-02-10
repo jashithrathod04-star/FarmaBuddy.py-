@@ -26,6 +26,84 @@ st.set_page_config(
 
 
 
+# ---------------- CUSTOM STYLING ----------------
+st.markdown("""
+<style>
+
+/* Main background */
+.stApp {
+    background-color: #F4FFF7;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #2E7D32;
+    color: white;
+}
+
+/* Sidebar text */
+section[data-testid="stSidebar"] * {
+    color: white;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    color: #1B5E20;
+}
+
+/* Buttons */
+.stButton > button {
+    background-color: #66BB6A;
+    color: white;
+    border-radius: 10px;
+    padding: 0.6em 1.2em;
+    font-weight: bold;
+    border: none;
+}
+
+.stButton > button:hover {
+    background-color: #388E3C;
+    color: white;
+}
+
+/* Tabs */
+button[data-baseweb="tab"] {
+    background-color: #E8F5E9;
+    color: #1B5E20;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-right: 4px;
+}
+
+button[data-baseweb="tab"][aria-selected="true"] {
+    background-color: #A5D6A7;
+    color: #1B5E20;
+}
+
+/* Success, info boxes */
+div[data-testid="stSuccess"] {
+    background-color: #C8E6C9;
+    color: #1B5E20;
+}
+
+div[data-testid="stInfo"] {
+    background-color: #E3F2FD;
+    color: #0D47A1;
+}
+
+/* Dataframe container */
+.stDataFrame {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+
+
 # ---------------- API KEY & CLIENT ----------------
 # We force the 'v1' stable API version to resolve the 404 issue.
 # Change this in your CONFIG section
