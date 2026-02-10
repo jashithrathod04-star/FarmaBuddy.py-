@@ -17,6 +17,12 @@ if "farmer_location" not in st.session_state:
     st.session_state.farmer_location = ""
 
 
+
+# ---------------- DARK MODE STATE ----------------
+if "dark_mode" not in st.session_state:
+    st.session_state.dark_mode = False
+
+
 # ---------------- CONFIG ----------------
 st.set_page_config(
     page_title="FarmaBuddy 🌱",
@@ -157,6 +163,115 @@ div[data-testid="stInfo"] {
 
 
 
+# ---------------- THEME STYLING ----------------
+st.markdown(f"""
+<style>
+
+/* ================= LIGHT MODE ================= */
+{""
+if st.session_state.dark_mode else
+"""
+.stApp {{
+    background-color: #043d75;
+    color: #eaf4ff;
+}}
+
+section[data-testid="stSidebar"] {{
+    background-color: #2E7D32;
+}}
+
+section[data-testid="stSidebar"] * {{
+    color: white;
+}}
+
+h1, h2, h3, h4 {{
+    color: #c1e3c3;
+}}
+
+.stButton > button {{
+    background-color: #66BB6A;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+}}
+
+button[data-baseweb="tab"] {{
+    background-color: #3333f5;
+    color: #c1e3c3;
+}}
+
+button[data-baseweb="tab"][aria-selected="true"] {{
+    background-color: #A5D6A7;
+    color: #1B5E20;
+}}
+
+div[data-testid="stSuccess"] {{
+    background-color: #C8E6C9;
+    color: #1B5E20;
+}}
+
+div[data-testid="stInfo"] {{
+    background-color: #E3F2FD;
+    color: #0D47A1;
+}}
+"""
+}
+
+/* ================= DARK MODE ================= */
+{""
+if not st.session_state.dark_mode else
+"""
+.stApp {{
+    background-color: #0B1220;
+    color: #E5E7EB;
+}}
+
+section[data-testid="stSidebar"] {{
+    background-color: #121826;
+}}
+
+section[data-testid="stSidebar"] * {{
+    color: #E5E7EB;
+}}
+
+h1, h2, h3, h4 {{
+    color: #A7F3D0;
+}}
+
+.stButton > button {{
+    background-color: #1F7A4D;
+    color: white;
+}}
+
+button[data-baseweb="tab"] {{
+    background-color: #1E293B;
+    color: #CBD5E1;
+}}
+
+button[data-baseweb="tab"][aria-selected="true"] {{
+    background-color: #1F7A4D;
+    color: white;
+}}
+
+div[data-testid="stSuccess"] {{
+    background-color: #064E3B;
+    color: #ECFDF5;
+}}
+
+div[data-testid="stInfo"] {{
+    background-color: #1E293B;
+    color: #E5E7EB;
+}}
+"""
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+
+
+
 # ---------------- API KEY & CLIENT ----------------
 # We force the 'v1' stable API version to resolve the 404 issue.
 # Change this in your CONFIG section
@@ -193,6 +308,16 @@ if not st.session_state.signed_up:
 
 
 # ---------------- HEADER ----------------
+
+
+# ---------------- DARK MODE TOGGLE ----------------
+toggle_col1, toggle_col2 = st.columns([9, 1])
+
+with toggle_col2:
+    if st.button("🌙" if not st.session_state.dark_mode else "☀️"):
+        st.session_state.dark_mode = not st.session_state.dark_mode
+        st.rerun()
+
 # ---------------- DASHBOARD HEADER ----------------
 st.markdown(f"""
 <div class="dashboard-header">
