@@ -59,8 +59,6 @@ Task:
 4. Keep language simple and practical.
 """
 
-
-
 # ---------------- MAIN ACTION ----------------
 if st.button("🌾 Get Smart Advice"):
     if not location:
