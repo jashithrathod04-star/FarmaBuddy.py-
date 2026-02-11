@@ -243,10 +243,10 @@ Crop stage: {crop_stage}
 Priorities: {', '.join(priority)}
 
 Task:
-1.⁠ ⁠Give 3 clear farming recommendations.
-2.⁠ ⁠Format as bullet points.
-3.⁠ ⁠After each recommendation, explain WHY it is useful.
-4.⁠ ⁠Keep language simple and practical.
+1. Give 3 clear farming recommendations.
+2. Format as bullet points.
+3. After each recommendation, explain WHY it is useful.
+4. Keep language simple and practical.
 """
 
 # ---------------- MAIN ACTION ----------------
@@ -311,8 +311,8 @@ with tab_settings:
     st.markdown("### 👨‍🌾 Farmer Profile")
     st.info(
         f"""
-        *Name:* {st.session_state.farmer_name}  
-        *Location:* {st.session_state.farmer_location}
+        **Name:** {st.session_state.farmer_name}  
+        **Location:** {st.session_state.farmer_location}
         """
     )
 
