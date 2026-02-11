@@ -256,7 +256,6 @@ with tab_advice:
         if not location:
             st.warning("Please enter your location.")
         else:
-            st.snow
             response = client.models.generate_content(
                 model="gemini-3-flash-preview",
                 contents=build_prompt(),
