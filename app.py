@@ -263,6 +263,7 @@ with tab_advice:
             )
             st.success("Here’s your AI-generated farming advice:")
             st.markdown(response.text)
+            st.snow
 
  
 
