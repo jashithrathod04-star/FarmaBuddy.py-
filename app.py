@@ -94,7 +94,7 @@ button[data-baseweb="tab"] {
 }
 
 button[data-baseweb="tab"][aria-selected="true"] {
-    background-color: #C8E6C9;
+    background-color: #ed77e7;
     color: #1B5E20;
 }
 
