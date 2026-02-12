@@ -131,6 +131,13 @@ div[data-testid="stCheckbox"] label {
 h2 {
     color: #1B3A2F !important;
 }
+
+
+/* Make checkbox labels black */
+div[data-testid="stCheckbox"] label p {
+    color: #1B3A2F !important;
+    font-weight: 500;
+}
 </style>
 """, unsafe_allow_html=True)
 
