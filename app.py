@@ -37,14 +37,16 @@ st.markdown("""
 
 /* -------- GLOBAL -------- */
 .stApp {
-    background: linear-gradient(rgba(248,250,246,0.92), rgba(238,246,236,0.92)),
-                url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #1B3A2F;
-    font-family: 'Segoe UI', sans-serif;
+    background: 
+        linear-gradient(rgba(248,250,246,0.90), rgba(238,246,236,0.90)) !important,
+        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef") !important;
+        
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
 }
+
 
 
 /* -------- SIDEBAR -------- */
