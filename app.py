@@ -315,21 +315,18 @@ with tab_advice:
 with tab_feedback:
     st.markdown("## ✅ AI Output Validation Checklist")
 
-    feedback = {
-        "Region-specific advice": st.checkbox("Advice is specific to my region", key="f1"),
-        "Logical reasoning": st.checkbox("Suggestions include valid reasoning", key="f2"),
-        "Simple language": st.checkbox("Language is easy to understand", key="f3"),
-        "Actionable steps": st.checkbox("Advice can be applied practically", key="f4"),
-        "Safe & ethical": st.checkbox("No unsafe or misleading information", key="f5")
-    }
+    with st.form("feedback_form"):
 
-    if st.button("📊 Submit Feedback"):
-        score = sum(feedback.values())
-        st.session_state.feedback_score = score
+        f1 = st.checkbox("Advice is specific to my region")
+        f2 = st.checkbox("Suggestions include valid reasoning")
+        f3 = st.checkbox("Language is easy to understand")
+        f4 = st.checkbox("Advice can be applied practically")
+        f5 = st.checkbox("No unsafe or misleading information")
 
-    # Display if exists
-    if "feedback_score" in st.session_state:
-        score = st.session_state.feedback_score
+        submitted = st.form_submit_button("📊 Submit Feedback")
+
+    if submitted:
+        score = sum([f1, f2, f3, f4, f5])
         percentage = int((score / 5) * 100)
 
         circumference = 440
@@ -338,21 +335,29 @@ with tab_feedback:
         st.markdown(f"""
         <div style="text-align:center;">
         <svg width="180" height="180">
-          <circle cx="90" cy="90" r="70" stroke="#e0e0e0" stroke-width="15" fill="none"/>
           <circle cx="90" cy="90" r="70"
-            stroke="#2E7D32"
-            stroke-width="15"
-            fill="none"
-            stroke-dasharray="{progress} {circumference}"
-            transform="rotate(-90 90 90)"/>
-          <text x="50%" y="50%" text-anchor="middle" dy=".3em"
-            font-size="28" fill="#1B3A2F" font-weight="bold">
-            {percentage}%
+                  stroke="#e0e0e0"
+                  stroke-width="15"
+                  fill="none"/>
+          <circle cx="90" cy="90" r="70"
+                  stroke="#2E7D32"
+                  stroke-width="15"
+                  fill="none"
+                  stroke-dasharray="{progress} {circumference}"
+                  transform="rotate(-90 90 90)"/>
+          <text x="50%" y="50%"
+                text-anchor="middle"
+                dy=".3em"
+                font-size="28"
+                fill="#1B3A2F"
+                font-weight="bold">
+                {percentage}%
           </text>
         </svg>
         <p style="font-weight:600;">Feedback Quality Score</p>
         </div>
         """, unsafe_allow_html=True)
+
 
 
 
