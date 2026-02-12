@@ -234,26 +234,30 @@ Task:
 with tab_advice:
     # ---------------- MAIN ACTION ----------------
     if st.button("🌾 Get Smart Advice"):
-    if not location:
-        st.warning("Please enter your location.")
-    else:
-        response = client.models.generate_content(
-            model="gemini-3-flash-preview",
-            contents=build_prompt(),
-            config={"temperature": temperature, "max_output_tokens": 512}
-        )
+        if not location:
+            st.warning("Please enter your location.")
+        else:
+            response = client.models.generate_content(
+                model="gemini-3-flash-preview",
+                contents=build_prompt(),
+                config={
+                    "temperature": temperature,
+                    "max_output_tokens": 512
+                }
+            )
+    
+            st.markdown("""
+            <div class="glass-card">
+            <h3>🌾 AI Smart Recommendations</h3>
+            </div>
+            """, unsafe_allow_html=True)
+    
+            st.markdown(f"""
+            <div class="glass-card">
+            {response.text}
+            </div>
+            """, unsafe_allow_html=True)
 
-        st.markdown("""
-        <div class="glass-card">
-        <h3>🌾 AI Smart Recommendations</h3>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown(f"""
-        <div class="glass-card">
-        {response.text}
-        </div>
-        """, unsafe_allow_html=True)
 
 
             
