@@ -43,7 +43,7 @@ st.markdown("""
 /* Sidebar */
 section[data-testid="stSidebar"] {
     background-color: #1B5E20;
-    color: red;
+    color: white;
 }
 
 section[data-testid="stSidebar"] * {
@@ -59,7 +59,7 @@ section[data-testid="stSidebar"] * {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    color: blue;
+    color: white;
     box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
 }
 
@@ -103,7 +103,7 @@ button[data-baseweb="tab"][aria-selected="true"] {
 div[data-testid="stDataFrameContainer"],
 div[data-testid="stSuccess"],
 div[data-testid="stInfo"] {
-    background-color: white;
+    background-color: red;
     border-radius: 14px;
     padding: 15px;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
