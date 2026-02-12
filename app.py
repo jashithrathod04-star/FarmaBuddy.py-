@@ -1,5 +1,11 @@
 import sys
 import streamlit as st
+st.markdown("""
+<style>
+...
+</style>
+""", unsafe_allow_html=True)
+
 import pandas as pd
 from datetime import datetime
 from google import genai
