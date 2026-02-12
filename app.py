@@ -35,14 +35,16 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* Main background */
+/* -------- GLOBAL -------- */
 .stApp {
-    background-color: #fcfbf5;
+    background: linear-gradient(180deg, #f8faf6 0%, #eef6ec 100%);
+    color: #1B3A2F;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* Sidebar */
+/* -------- SIDEBAR -------- */
 section[data-testid="stSidebar"] {
-    background-color: #1B5E20;
+    background: linear-gradient(180deg, #1B5E20, #2E7D32);
     color: white;
 }
 
@@ -50,94 +52,85 @@ section[data-testid="stSidebar"] * {
     color: white !important;
 }
 
-/* Dashboard Header */
+/* -------- HERO HEADER -------- */
 .dashboard-header {
-    background: linear-gradient(90deg, #2E7D32, #66BB6A);
-    padding: 20px 30px;
-    border-radius: 16px;
+    background: linear-gradient(135deg, #2E7D32, #66BB6A);
+    padding: 25px 35px;
+    border-radius: 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: white;
-    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+    box-shadow: 0px 10px 30px rgba(46,125,50,0.25);
+    backdrop-filter: blur(10px);
 }
 
-/* Headings */
-h1, h2, h3 {
-    color: #1B3A2F;
+/* -------- TABS -------- */
+button[data-baseweb="tab"] {
+    font-weight: 600;
+    color: #2E7D32;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 6px 16px;
+    margin-right: 8px;
+    transition: 0.3s ease;
 }
 
-/* Buttons */
+button[data-baseweb="tab"]:hover {
+    background-color: #e8f5e9;
+}
+
+button[data-baseweb="tab"][aria-selected="true"] {
+    background: linear-gradient(90deg, #2E7D32, #66BB6A);
+    color: white;
+}
+
+/* -------- BUTTONS -------- */
 .stButton > button {
     background: linear-gradient(90deg, #2E7D32, #66BB6A);
-    color: yellow;
-    border-radius: 12px;
-    padding: 0.6em 1.2em;
+    color: white;
+    border-radius: 14px;
+    padding: 0.7em 1.5em;
     font-weight: 600;
     border: none;
+    box-shadow: 0px 4px 15px rgba(46,125,50,0.3);
     transition: 0.3s ease;
 }
 
 .stButton > button:hover {
-    background: linear-gradient(90deg, #1B5E20, #43A047);
-    transform: scale(1.03);
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 25px rgba(46,125,50,0.4);
 }
 
-/* Tabs */
-button[data-baseweb="tab"] {
-    font-weight: 600;
-    color: #2E7D32;
-    background-color: #E8F5E9;
-    border-radius: 8px;
-    margin-right: 5px;
+/* -------- GLASS CARD -------- */
+.glass-card {
+    background: rgba(255,255,255,0.7);
+    padding: 20px;
+    border-radius: 18px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
 }
 
-button[data-baseweb="tab"][aria-selected="true"] {
-    background-color: #f0f7f0;
-    color: #1B5E20;
-}
-
-/* Cards & Dataframes */
-.stDataFrame, 
-div[data-testid="stDataFrameContainer"],
-div[data-testid="stSuccess"],
-div[data-testid="stInfo"] {
-    background-color: white;
-    border-radius: 14px;
-    padding: 15px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
-}
-
-
-/* Make input labels black */
+/* -------- INPUT LABELS -------- */
 label {
     color: #1B3A2F !important;
     font-weight: 600;
 }
 
-/* Force all main page text to dark */
-.stApp {
-    color: #1B3A2F;
-}
-
-/* Checkbox labels */
-div[data-testid="stCheckbox"] label {
-    color: #1B3A2F !important;
-    font-weight: 500;
-}
-
-/* Markdown headers */
-h2 {
-    color: #1B3A2F !important;
-}
-
-
-/* Make checkbox labels black */
+/* -------- CHECKBOX -------- */
 div[data-testid="stCheckbox"] label p {
     color: #1B3A2F !important;
-    font-weight: 500;
 }
+
+/* -------- DATAFRAME -------- */
+.stDataFrame {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.05);
+}
+
 </style>
 """, unsafe_allow_html=True)
 
