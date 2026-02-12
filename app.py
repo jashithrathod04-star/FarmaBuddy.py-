@@ -115,6 +115,22 @@ label {
     color: #1B3A2F !important;
     font-weight: 600;
 }
+
+/* Force all main page text to dark */
+.stApp {
+    color: #1B3A2F;
+}
+
+/* Checkbox labels */
+div[data-testid="stCheckbox"] label {
+    color: #1B3A2F !important;
+    font-weight: 500;
+}
+
+/* Markdown headers */
+h2 {
+    color: #1B3A2F !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
