@@ -109,6 +109,12 @@ div[data-testid="stInfo"] {
     box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
 }
 
+
+/* Make input labels black */
+label {
+    color: #1B3A2F !important;
+    font-weight: 600;
+}
 </style>
 """, unsafe_allow_html=True)
 
