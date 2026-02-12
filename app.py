@@ -316,27 +316,35 @@ with tab_feedback:
     st.markdown("## ✅ AI Output Validation Checklist")
 
     feedback = {
-        "Region-specific advice": st.checkbox("Advice is specific to my region"),
-        "Logical reasoning": st.checkbox("Suggestions include valid reasoning"),
-        "Simple language": st.checkbox("Language is easy to understand"),
-        "Actionable steps": st.checkbox("Advice can be applied practically"),
-        "Safe & ethical": st.checkbox("No unsafe or misleading information")
+        "Region-specific advice": st.checkbox("Advice is specific to my region", key="f1"),
+        "Logical reasoning": st.checkbox("Suggestions include valid reasoning", key="f2"),
+        "Simple language": st.checkbox("Language is easy to understand", key="f3"),
+        "Actionable steps": st.checkbox("Advice can be applied practically", key="f4"),
+        "Safe & ethical": st.checkbox("No unsafe or misleading information", key="f5")
     }
 
     if st.button("📊 Submit Feedback"):
         score = sum(feedback.values())
+        st.session_state.feedback_score = score
+
+    # Display if exists
+    if "feedback_score" in st.session_state:
+        score = st.session_state.feedback_score
         percentage = int((score / 5) * 100)
+
+        circumference = 440
+        progress = (percentage / 100) * circumference
 
         st.markdown(f"""
         <div style="text-align:center;">
-        <svg width="160" height="160">
-          <circle cx="80" cy="80" r="70" stroke="#e0e0e0" stroke-width="15" fill="none"/>
-          <circle cx="80" cy="80" r="70"
+        <svg width="180" height="180">
+          <circle cx="90" cy="90" r="70" stroke="#e0e0e0" stroke-width="15" fill="none"/>
+          <circle cx="90" cy="90" r="70"
             stroke="#2E7D32"
             stroke-width="15"
             fill="none"
-            stroke-dasharray="{percentage * 4.4} 440"
-            transform="rotate(-90 80 80)"/>
+            stroke-dasharray="{progress} {circumference}"
+            transform="rotate(-90 90 90)"/>
           <text x="50%" y="50%" text-anchor="middle" dy=".3em"
             font-size="28" fill="#1B3A2F" font-weight="bold">
             {percentage}%
@@ -345,6 +353,7 @@ with tab_feedback:
         <p style="font-weight:600;">Feedback Quality Score</p>
         </div>
         """, unsafe_allow_html=True)
+
 
 
 
