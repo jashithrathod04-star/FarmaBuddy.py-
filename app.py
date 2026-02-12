@@ -242,8 +242,18 @@ with tab_advice:
                 contents=build_prompt(),
                 config={"temperature": temperature, "max_output_tokens": 512}
             )
-            st.success("Here’s your AI-generated farming advice:")
-            st.markdown(response.text)
+           st.markdown("""
+            <div class="glass-card">
+            <h3>🌾 AI Smart Recommendations</h3>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown(f"""
+            <div class="glass-card">
+            {response.text}
+            </div>
+            """, unsafe_allow_html=True)
+
             
 
  
