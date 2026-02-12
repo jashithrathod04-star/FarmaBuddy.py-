@@ -11,6 +11,10 @@ st.set_page_config(
     layout="wide"
 )
 
+if not st.session_state.get("signed_up", False):
+    st.warning("Please sign up first from the Sign Up page.")
+    st.stop()
+
 # ---------------- CUSTOM DESIGN ----------------
 st.markdown("""
 <style>
@@ -95,29 +99,7 @@ client = genai.Client(
 )
 
 # ---------------- SIGNUP PAGE ----------------
-if not st.session_state.signed_up:
 
-    st.markdown("""
-    <div style="
-        background: linear-gradient(120deg, #2E7D32, #66BB6A);
-        padding: 30px;
-        border-radius: 20px;
-        color: white;
-        text-align: center;
-        margin-bottom: 30px;
-    ">
-        <h1>🌱 FarmaBuddy</h1>
-        <p>Smart AI Farming Assistant</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.subheader("Create Your Profile")
-
-    name = st.text_input("Farmer Name")
-    location_signup = st.text_input("Village / City / State")
-
-    if st.button("Sign Up"):
-        ...
 
 # ---------------- HEADER ----------------
 st.markdown("""
