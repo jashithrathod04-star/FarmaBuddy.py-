@@ -48,12 +48,10 @@ st.markdown("""
 .stApp::before {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(248,250,246,0.92), rgba(238,246,236,0.92)),
-                url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+    inset: 0;
+    background:
+        linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
+        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
