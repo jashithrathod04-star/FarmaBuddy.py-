@@ -298,6 +298,12 @@ with tab_advice:
             {response.text}
             </div>
             """, unsafe_allow_html=True)
+            # -------- Advice Quality Score --------
+            advice_score = 85  # You can calculate dynamically later
+            st.markdown("### 📈 Advice Confidence Score")
+            st.progress(advice_score / 100)
+            st.caption(f"{advice_score}% Confidence Level")
+
 
 
 
