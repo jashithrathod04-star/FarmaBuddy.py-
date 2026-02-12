@@ -103,7 +103,7 @@ button[data-baseweb="tab"][aria-selected="true"] {
 div[data-testid="stDataFrameContainer"],
 div[data-testid="stSuccess"],
 div[data-testid="stInfo"] {
-    background-color: red;
+    background-color: yellow;
     border-radius: 14px;
     padding: 15px;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
@@ -127,9 +127,13 @@ client = genai.Client(
 if not st.session_state.signed_up:
     st.markdown(
         """
-        <h1 style='text-align:center;'>🌱 FarmaBuddy Sign Up</h1>
-        <p style='text-align:center;'>Welcome! Please enter your details to continue.</p>
-        <hr>
+        <div style="text-align:center;">
+            <h1 style="color:#1B3A2F;">🌱 FarmaBuddy Sign Up</h1>
+            <p style="color:#2E7D32;">
+                Welcome! Please enter your details to continue.
+            </p>
+            <hr>
+        </div>
         """,
         unsafe_allow_html=True
     )
@@ -146,7 +150,8 @@ if not st.session_state.signed_up:
         else:
             st.warning("Please fill in all fields.")
 
-    st.stop()   # ⛔ Prevents rest of app from loading
+    st.stop()
+
 
 
 
