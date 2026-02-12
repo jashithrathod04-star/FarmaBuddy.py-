@@ -325,7 +325,27 @@ with tab_feedback:
 
     if st.button("📊 Submit Feedback"):
         score = sum(feedback.values())
-        st.success(f"Feedback Score: {score}/5")
+        percentage = int((score / 5) * 100)
+
+        st.markdown(f"""
+        <div style="text-align:center;">
+        <svg width="160" height="160">
+          <circle cx="80" cy="80" r="70" stroke="#e0e0e0" stroke-width="15" fill="none"/>
+          <circle cx="80" cy="80" r="70"
+            stroke="#2E7D32"
+            stroke-width="15"
+            fill="none"
+            stroke-dasharray="{percentage * 4.4} 440"
+            transform="rotate(-90 80 80)"/>
+          <text x="50%" y="50%" text-anchor="middle" dy=".3em"
+            font-size="28" fill="#1B3A2F" font-weight="bold">
+            {percentage}%
+          </text>
+        </svg>
+        <p style="font-weight:600;">Feedback Quality Score</p>
+        </div>
+        """, unsafe_allow_html=True)
+
 
 
 # ---------------- USAGE LOG ----------------
