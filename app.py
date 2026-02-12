@@ -103,7 +103,7 @@ button[data-baseweb="tab"][aria-selected="true"] {
 div[data-testid="stDataFrameContainer"],
 div[data-testid="stSuccess"],
 div[data-testid="stInfo"] {
-    background-color: blue;
+    background-color: white;
     border-radius: 14px;
     padding: 15px;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
