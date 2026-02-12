@@ -213,6 +213,14 @@ crop_stage = st.sidebar.selectbox("Crop Stage", ["Planning", "Sowing", "Growing"
 priority = st.sidebar.multiselect("Your Priorities", ["Low Water Use", "High Yield", "Organic Farming", "Low Cost"])
 temperature = st.sidebar.slider("AI Creativity Level", 0.2, 0.9, 0.5)
 
+
+col1, col2, col3 = st.columns(3)
+
+col1.metric("Farmer", st.session_state.farmer_name)
+col2.metric("Region", region)
+col3.metric("Crop Stage", crop_stage)
+
+
 # ---------------- PROMPT ENGINE ----------------
 def build_prompt():
     return f"""
