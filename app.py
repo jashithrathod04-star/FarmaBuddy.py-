@@ -11,80 +11,6 @@ st.set_page_config(
     layout="wide"
 )
 
-if not st.session_state.get("signed_up", False):
-    st.warning("Please sign up first from the Sign Up page.")
-    st.stop()
-
-# ---------------- CUSTOM DESIGN ----------------
-st.markdown("""
-<style>
-
-/* Main Background */
-.stApp {
-    background-color: #F4F9F4;
-}
-
-/* Header Styling */
-h1 {
-    color: #1B3A2F;
-    font-weight: 700;
-}
-
-h2, h3 {
-    color: #2E7D32;
-}
-
-/* Sidebar */
-section[data-testid="stSidebar"] {
-    background-color: #E8F5E9;
-    border-right: 2px solid #C8E6C9;
-}
-
-/* Buttons */
-.stButton>button {
-    background: linear-gradient(90deg, #2E7D32, #66BB6A);
-    color: white;
-    border-radius: 12px;
-    border: none;
-    padding: 0.6em 1.2em;
-    font-weight: 600;
-    transition: 0.3s ease;
-}
-
-.stButton>button:hover {
-    background: linear-gradient(90deg, #1B5E20, #43A047);
-    transform: scale(1.03);
-}
-
-/* Tabs */
-button[data-baseweb="tab"] {
-    font-weight: 600;
-    color: #2E7D32;
-}
-
-button[data-baseweb="tab"][aria-selected="true"] {
-    background-color: #C8E6C9;
-    border-radius: 8px;
-}
-
-/* Cards */
-div[data-testid="stMetric"],
-div[data-testid="stDataFrameContainer"] {
-    background-color: white;
-    padding: 15px;
-    border-radius: 14px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
-}
-
-/* Footer */
-footer {
-    visibility: hidden;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-
 # ---------------- SESSION STATE ----------------
 if "signed_up" not in st.session_state:
     st.session_state.signed_up = False
@@ -99,25 +25,27 @@ client = genai.Client(
 )
 
 # ---------------- SIGNUP PAGE ----------------
+if not st.session_state.signed_up:
+    st.title("🌱 FarmaBuddy Sign Up")
+    st.write("Enter your details to continue")
 
+    name = st.text_input("Farmer Name")
+    location_signup = st.text_input("Village / City / State")
+
+    if st.button("Sign Up"):
+        if name and location_signup:
+            st.session_state.farmer_name = name
+            st.session_state.farmer_location = location_signup
+            st.session_state.signed_up = True
+            st.rerun()
+        else:
+            st.warning("Please fill all fields")
+
+    st.stop()
 
 # ---------------- HEADER ----------------
-st.markdown("""
-<div style="
-    background: linear-gradient(90deg, #2E7D32, #66BB6A);
-    padding: 25px;
-    border-radius: 18px;
-    color: white;
-    text-align: center;
-    margin-bottom: 25px;
-    box-shadow: 0px 6px 20px rgba(0,0,0,0.08);
-">
-    <h1 style="margin-bottom: 5px;">🌱 FarmaBuddy</h1>
-    <p style="font-size: 1.1rem; opacity: 0.95;">
-        AI Powered Smart Farming Assistant
-    </p>
-</div>
-""", unsafe_allow_html=True)
+st.title("🌱 FarmaBuddy")
+st.caption("AI Powered Smart Farming Assistant")
 
 col1, col2 = st.columns(2)
 col1.write(f"👨‍🌾 Farmer: **{st.session_state.farmer_name}**")
