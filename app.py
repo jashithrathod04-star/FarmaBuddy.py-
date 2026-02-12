@@ -210,6 +210,33 @@ st.markdown(f"""
 
 
 
+# -------- Weather Badge --------
+st.markdown("""
+<div style="
+display:inline-block;
+padding:10px 20px;
+border-radius:30px;
+background:linear-gradient(90deg,#42A5F5,#66BB6A);
+color:white;
+font-weight:600;
+animation:pulse 2s infinite;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+">
+🌤 28°C | Humidity 65%
+</div>
+
+<style>
+@keyframes pulse {
+0% {transform: scale(1);}
+50% {transform: scale(1.05);}
+100% {transform: scale(1);}
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
+
 
 # ---------------- TABS ----------------
 tab_advice, tab_feedback, tab_usage, tab_settings = st.tabs(
