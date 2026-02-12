@@ -46,8 +46,8 @@ st.markdown("""
 }
 
 /* Create a transparent content layer */
-.main > div {
-    background-color: rgba(255, 255, 255, 0.85);
+.block-container {
+    background-color: rgba(255,255,255,0.85);
     padding: 2rem;
     border-radius: 15px;
 }
