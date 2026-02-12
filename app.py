@@ -43,11 +43,11 @@ st.markdown("""
 /* Sidebar */
 section[data-testid="stSidebar"] {
     background-color: #1B5E20;
-    color: white;
+    color: red;
 }
 
 section[data-testid="stSidebar"] * {
-    color: blue !important;
+    color: white !important;
 }
 
 /* Dashboard Header */
@@ -59,7 +59,7 @@ section[data-testid="stSidebar"] * {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    color: white;
+    color: blue;
     box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
 }
 
@@ -71,7 +71,7 @@ h1, h2, h3 {
 /* Buttons */
 .stButton > button {
     background: linear-gradient(90deg, #2E7D32, #66BB6A);
-    color: white;
+    color: yellow;
     border-radius: 12px;
     padding: 0.6em 1.2em;
     font-weight: 600;
