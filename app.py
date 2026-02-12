@@ -47,7 +47,7 @@ section[data-testid="stSidebar"] {
 }
 
 section[data-testid="stSidebar"] * {
-    color: white !important;
+    color: blue !important;
 }
 
 /* Dashboard Header */
