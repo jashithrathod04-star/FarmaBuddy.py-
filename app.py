@@ -35,12 +35,22 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* App background */
+/* Main background */
 .stApp {
-    background-color: #F4FFF7;
+    background-color: #F4F9F4;
 }
 
-/* Dashboard header */
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #1B5E20;
+    color: white;
+}
+
+section[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+/* Dashboard Header */
 .dashboard-header {
     background: linear-gradient(90deg, #2E7D32, #66BB6A);
     padding: 20px 30px;
@@ -50,109 +60,53 @@ st.markdown("""
     align-items: center;
     margin-bottom: 20px;
     color: white;
-}
-
-.dashboard-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.dashboard-icon {
-    font-size: 3rem;
-}
-
-.dashboard-header h1 {
-    margin: 0;
-    font-size: 2.2rem;
-    color: white;
-}
-
-.dashboard-header p {
-    margin: 0;
-    font-size: 1rem;
-    opacity: 0.95;
-}
-
-.dashboard-right {
-    text-align: right;
-    font-size: 0.95rem;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-
-
-st.markdown("""
-<style>
-
-/* Main background */
-.stApp {
-    background-color: #043d75;
-}
-
-/* Sidebar */
-section[data-testid="stSidebar"] {
-    background-color: #2E7D32;
-    color: white;
-}
-
-/* Sidebar text */
-section[data-testid="stSidebar"] * {
-    color: white;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
 }
 
 /* Headings */
-h1, h2, h3, h4 {
-    color: #1B5E20;
+h1, h2, h3 {
+    color: #1B3A2F;
 }
 
 /* Buttons */
 .stButton > button {
-    background-color: #66BB6A;
+    background: linear-gradient(90deg, #2E7D32, #66BB6A);
     color: white;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 0.6em 1.2em;
-    font-weight: bold;
+    font-weight: 600;
     border: none;
+    transition: 0.3s ease;
 }
 
 .stButton > button:hover {
-    background-color: #388E3C;
-    color: white;
+    background: linear-gradient(90deg, #1B5E20, #43A047);
+    transform: scale(1.03);
 }
 
 /* Tabs */
 button[data-baseweb="tab"] {
-    background-color: #3333f5;
-    color: #c1e3c3;
     font-weight: 600;
+    color: #2E7D32;
+    background-color: #E8F5E9;
     border-radius: 8px;
-    margin-right: 4px;
+    margin-right: 5px;
 }
 
 button[data-baseweb="tab"][aria-selected="true"] {
-    background-color: #A5D6A7;
-    color: #1B5E20;
-}
-
-/* Success, info boxes */
-div[data-testid="stSuccess"] {
     background-color: #C8E6C9;
     color: #1B5E20;
 }
 
+/* Cards & Dataframes */
+.stDataFrame, 
+div[data-testid="stDataFrameContainer"],
+div[data-testid="stSuccess"],
 div[data-testid="stInfo"] {
-    background-color: #E3F2FD;
-    color: #0D47A1;
-}
-
-/* Dataframe container */
-.stDataFrame {
     background-color: white;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 14px;
+    padding: 15px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
 }
 
 </style>
