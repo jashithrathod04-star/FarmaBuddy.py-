@@ -38,24 +38,18 @@ st.markdown("""
 <style>
 
 /* -------- GLOBAL -------- */
+/* Remove old background rules completely */
+
 .stApp {
-    position: relative;
-    background: none;
-    color: #1B3A2F;
-    font-family: 'Segoe UI', sans-serif;
+    background: url("https://images.unsplash.com/photo-1500382017468-9049fed747ef") no-repeat center center fixed;
+    background-size: cover;
 }
 
-.stApp::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background:
-        linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
-        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    z-index: -1;
+/* Create a transparent content layer */
+.main > div {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 2rem;
+    border-radius: 15px;
 }
 
 
