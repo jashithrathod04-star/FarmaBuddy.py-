@@ -191,38 +191,32 @@ if not st.session_state.signed_up:
 
 
 # ---------------- HEADER ----------------
-# ---------------- DASHBOARD HEADER ----------------
 st.markdown(f"""
 <div class="dashboard-header">
-    <div class="dashboard-left">
-        <span class="dashboard-icon">🌱</span>
-        <div>
-            <h1>FarmaBuddy</h1>
-            <p>AI-Powered Smart Farming Assistant</p>
+    <div>
+        <h1 style="margin:0;">🌱 FarmaBuddy</h1>
+        <p style="margin:0;">AI-Powered Smart Farming Assistant</p>
+    </div>
+
+    <div style="text-align:right;">
+        <p style="margin:0;">👨🌾 <strong>{st.session_state.farmer_name}</strong></p>
+        <p style="margin:0;">📍 <strong>{st.session_state.farmer_location}</strong></p>
+
+        <div style="
+        margin-top:8px;
+        display:inline-block;
+        padding:6px 16px;
+        border-radius:25px;
+        background:linear-gradient(90deg,#42A5F5,#66BB6A);
+        color:white;
+        font-weight:600;
+        font-size:14px;
+        animation:pulse 2s infinite;
+        box-shadow:0 4px 15px rgba(0,0,0,0.2);
+        ">
+        🌤 28°C | 65% Humidity
         </div>
     </div>
-    <div class="dashboard-right">
-        <p>👨🌾 Farmer: <strong>{st.session_state.farmer_name}</strong></p>
-        <p>📍 Location: <strong>{st.session_state.farmer_location}</strong></p>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-
-
-# -------- Weather Badge --------
-st.markdown("""
-<div style="
-display:inline-block;
-padding:10px 20px;
-border-radius:30px;
-background:linear-gradient(90deg,#42A5F5,#66BB6A);
-color:white;
-font-weight:600;
-animation:pulse 2s infinite;
-box-shadow:0 4px 15px rgba(0,0,0,0.2);
-">
-🌤 28°C | Humidity 65%
 </div>
 
 <style>
@@ -233,7 +227,6 @@ box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 </style>
 """, unsafe_allow_html=True)
-
 
 
 
