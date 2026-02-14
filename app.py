@@ -36,53 +36,82 @@ if "farmer_location" not in st.session_state:
 # ---------------- CUSTOM STYLING ----------------
 st.markdown("""
 <style>
-/* -------- GLOBAL TEXT BOLDING -------- */
-/* This targets almost all text in the app */
-.stApp, .stApp p, .stApp label, .stApp span, .stApp li {
-    font-weight: 900 !important;
-    color: #000000 !important; /* Pure black for maximum contrast */
-    text-shadow: 1px 1px 0px #ffffff, -1px -1px 0px #ffffff, 1px -1px 0px #ffffff, -1px 1px 0px #ffffff; /* White outline effect */
-}
-
-/* -------- HEADER TEXT -------- */
-.white-text {
-    font-weight: 900 !important;
-    color: #ffffff !important;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important; /* Dark shadow for white text */
-}
-
-/* -------- SIDEBAR TEXT -------- */
-section[data-testid="stSidebar"] p, 
-section[data-testid="stSidebar"] span, 
-section[data-testid="stSidebar"] label {
-    color: #ffffff !important;
-    font-weight: 900 !important;
-    text-shadow: none !important;
-}
-
-/* -------- TAB TEXT -------- */
-button[data-baseweb="tab"] p {
-    font-weight: 900 !important;
-    font-size: 1.1rem !important;
-}
-
-/* -------- BACKGROUND IMAGE -------- */
+/* -------- GLOBAL -------- */
 .stApp {
     background: url("https://images.unsplash.com/photo-1500382017468-9049fed747ef") no-repeat center center fixed;
     background-size: cover;
 }
 
-/* Keep original dashboard header styling but ensure text is bold */
+/* Make all standard text and labels bold and high-contrast */
+.stApp p, .stApp span, .stApp label {
+    color: #002200 !important; /* Deep dark green for better visibility */
+    font-weight: 800 !important;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8); /* White glow behind text */
+}
+
+/* -------- HERO HEADER -------- */
 .dashboard-header {
-    background: linear-gradient(135deg, #2E7D32, #66BB6A);
+    background: linear-gradient(135deg, #1B5E20, #2E7D32); /* Darkened for better contrast */
     padding: 25px 35px;
     border-radius: 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
-    box-shadow: 0px 10px 30px rgba(46,125,50,0.25);
-    backdrop-filter: blur(10px);
+    color: white !important;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+    backdrop-filter: blur(15px);
+}
+
+.white-text { 
+    color: #FFFFFF !important; 
+    margin: 0 !important; 
+    font-weight: 800 !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important; 
+}
+
+/* -------- GLASS CARD (The Advice Box) -------- */
+.glass-card {
+    background: rgba(255,255,255,0.85); /* Increased opacity */
+    padding: 25px;
+    border-radius: 18px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.glass-card h3, .glass-card li {
+    color: #003300 !important;
+    font-weight: 700 !important;
+}
+
+/* -------- SIDEBAR -------- */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0D2611, #1B5E20); /* Darker sidebar */
+}
+
+section[data-testid="stSidebar"] * {
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+}
+
+/* -------- TABS -------- */
+button[data-baseweb="tab"] p {
+    font-weight: 800 !important;
+    font-size: 16px !important;
+}
+
+/* -------- WEATHER BADGE -------- */
+.weather-badge {
+    margin-top: 8px;
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 25px;
+    background: #FFFFFF; /* High contrast white background */
+    color: #1B5E20 !important;
+    font-weight: 900 !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 </style>
 """, unsafe_allow_html=True)
