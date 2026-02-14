@@ -229,18 +229,22 @@ border-radius: 5px;">
 # ---------------- PROMPT ENGINE ----------------
 def build_prompt():
     return f"""
-You are an expert agricultural advisor.
-Farmer details:
-Region: {region}
-Location: {location}
-Crop stage: {crop_stage}
-Priorities: {', '.join(priority)}
+You are a highly experienced Senior Agricultural Consultant specializing in {region}. 
+The farmer is located in {location} and is currently at the {crop_stage} stage.
+Their core priorities are: {', '.join(priority)}.
 
-Task:
-1. Give 3 clear farming recommendations.
-2. Format as bullet points.
-3. After each recommendation, explain WHY it is useful.
-4. Keep language simple and practical.
+Task: Provide a comprehensive, professional farming guide.
+Structure your response as follows:
+
+1. **Detailed Strategy Overview**: Provide a deep-dive analysis of what the farmer should focus on during the {crop_stage} stage based on their priorities.
+2. **5 Actionable Recommendations**: For each recommendation:
+    - **Implementation Step**: Explain exactly HOW to do it.
+    - **Scientific/Practical Benefit**: Explain WHY it works.
+    - **Resource Management**: How it helps with {', '.join(priority)}.
+3. **Risk Mitigation**: Identify 2 potential risks for this stage in {location} and how to avoid them.
+4. **Pro-Tip**: One advanced farming technique to maximize success.
+
+Use professional yet accessible language. Be specific to the geography of {location}.
 """
 
 # ---------------- MAIN ACTION ----------------
