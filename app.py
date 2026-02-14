@@ -151,7 +151,11 @@ div[data-testid="stCheckbox"] label p {
 }
 
 
-/* Add this inside your existing <style> tag */
+
+.header-right {
+    text-align: right;
+}
+
 .weather-badge {
     margin-top: 8px;
     display: inline-block;
@@ -163,6 +167,11 @@ div[data-testid="stCheckbox"] label p {
     font-size: 14px;
     animation: pulse 2s infinite;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.white-text {
+    color: white !important;
+    margin: 0 !important;
 }
 
 
