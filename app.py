@@ -72,7 +72,7 @@ st.markdown("""
 
 /* -------- GLASS CARD (The Advice Box) -------- */
 .glass-card {
-    background: rgba(255,255,255,0.85); /* Increased opacity */
+    background: rgba(220, 245, 220, 0.95); /* Increased opacity */
     padding: 25px;
     border-radius: 18px;
     backdrop-filter: blur(12px);
