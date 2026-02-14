@@ -7,7 +7,12 @@ from datetime import datetime
 from google import genai
 from google.genai import types
 
-
+# ---------------- CONFIG ----------------
+st.set_page_config(
+    page_title="FarmaBuddy 🌱",
+    page_icon="🌾",
+    layout="wide"
+)
 # ---------------- SESSION STATE INIT ----------------
 if "signed_up" not in st.session_state:
     st.session_state.signed_up = False
@@ -23,12 +28,7 @@ if "farmer_location" not in st.session_state:
 
 
 
-# ---------------- CONFIG ----------------
-st.set_page_config(
-    page_title="FarmaBuddy 🌱",
-    page_icon="🌾",
-    layout="wide"
-)
+
 
 
 
