@@ -113,6 +113,26 @@ button[data-baseweb="tab"] p {
     font-weight: 900 !important;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
+
+/* -------- LIGHT GREEN BUTTONS -------- */
+.stButton > button {
+    background: #C8E6C9 !important; /* Soft light green */
+    color: #003300 !important;      /* Dark green text for bold contrast */
+    border: 2px solid #2E7D32 !important; /* Darker green border */
+    border-radius: 14px;
+    padding: 0.7em 1.5em;
+    font-weight: 900 !important;    /* Extra bold text */
+    text-shadow: none !important;    /* Clean look for button text */
+    transition: 0.3s ease;
+    width: 100%;
+}
+
+.stButton > button:hover {
+    background: #A5D6A7 !important; /* Slightly darker green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+    color: #000000 !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
