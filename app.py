@@ -152,10 +152,8 @@ div[data-testid="stCheckbox"] label p {
 
 
 
-.header-right {
-    text-align: right;
-}
-
+.header-right { text-align: right; }
+.white-text { color: white !important; margin: 0 !important; }
 .weather-badge {
     margin-top: 8px;
     display: inline-block;
@@ -164,16 +162,7 @@ div[data-testid="stCheckbox"] label p {
     background: linear-gradient(90deg, #42A5F5, #66BB6A);
     color: white !important;
     font-weight: 600;
-    font-size: 14px;
-    animation: pulse 2s infinite;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
-
-.white-text {
-    color: white !important;
-    margin: 0 !important;
-}
-
 
 </style>
 """, unsafe_allow_html=True)
@@ -223,28 +212,24 @@ if not st.session_state.signed_up:
 
 # ---------------- HEADER ----------------
 # ---------------- HEADER ----------------
-# We use .format() here instead of an f-string to prevent CSS {} conflicts
-header_html = """
+# ---------------- HEADER ----------------
+# Use st.html instead of st.markdown for better reliability
+# Note: Keep the HTML tags flush to the left (no spaces before <div)
+header_html = f"""
 <div class="dashboard-header">
-    <div>
-        <h1 class="white-text">🌱 FarmaBuddy</h1>
-        <p class="white-text">AI-Powered Smart Farming Assistant</p>
-    </div>
-
-    <div class="header-right">
-        <p class="white-text">👨‍🌾 <strong>{name}</strong></p>
-        <p class="white-text">📍 <strong>{loc}</strong></p>
-        <div class="weather-badge">
-            🌤 28°C | 65% Humidity
-        </div>
-    </div>
+<div>
+<h1 class="white-text">🌱 FarmaBuddy</h1>
+<p class="white-text">AI-Powered Smart Farming Assistant</p>
 </div>
-""".format(
-    name=st.session_state.get("farmer_name", "Farmer"), 
-    loc=st.session_state.get("farmer_location", "Unknown")
-)
+<div class="header-right">
+<p class="white-text">👨‍🌾 <strong>{st.session_state.get('farmer_name', 'Farmer')}</strong></p>
+<p class="white-text">📍 <strong>{st.session_state.get('farmer_location', 'Location')}</strong></p>
+<div class="weather-badge">🌤 28°C | 65% Humidity</div>
+</div>
+</div>
+"""
 
-st.markdown(header_html, unsafe_allow_html=True)
+st.html(header_html)
 
 
 
