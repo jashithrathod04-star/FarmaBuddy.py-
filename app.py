@@ -151,6 +151,21 @@ div[data-testid="stCheckbox"] label p {
 }
 
 
+/* Add this inside your existing <style> tag */
+.weather-badge {
+    margin-top: 8px;
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 25px;
+    background: linear-gradient(90deg, #42A5F5, #66BB6A);
+    color: white !important;
+    font-weight: 600;
+    font-size: 14px;
+    animation: pulse 2s infinite;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+
 </style>
 """, unsafe_allow_html=True)
 
