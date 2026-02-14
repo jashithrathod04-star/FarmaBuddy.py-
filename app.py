@@ -198,37 +198,37 @@ if not st.session_state.signed_up:
 
 
 # ---------------- HEADER ----------------
-st.markdown(
-    f"""
-    <div class="dashboard-header">
-        <div>
-            <h1 style="margin:0;">🌱 FarmaBuddy</h1>
-            <p style="margin:0;">AI-Powered Smart Farming Assistant</p>
-        </div>
-
-        <div style="text-align:right;">
-            <p style="margin:0;">👨‍🌾 <strong>{st.session_state.farmer_name}</strong></p>
-            <p style="margin:0;">📍 <strong>{st.session_state.farmer_location}</strong></p>
-
-            <div style="
-                margin-top:8px;
-                display:inline-block;
-                padding:6px 16px;
-                border-radius:25px;
-                background:linear-gradient(90deg,#42A5F5,#66BB6A);
-                color:white;
-                font-weight:600;
-                font-size:14px;
-                animation:pulse 2s infinite;
-                box-shadow:0 4px 15px rgba(0,0,0,0.2);
-            ">
-                🌤 28°C | 65% Humidity
+    st.markdown(
+        f"""
+        <div class="dashboard-header">
+            <div>
+                <h1 style="margin:0;">🌱 FarmaBuddy</h1>
+                <p style="margin:0;">AI-Powered Smart Farming Assistant</p>
+            </div>
+    
+            <div style="text-align:right;">
+                <p style="margin:0;">👨‍🌾 <strong>{st.session_state.farmer_name}</strong></p>
+                <p style="margin:0;">📍 <strong>{st.session_state.farmer_location}</strong></p>
+    
+                <div style="
+                    margin-top:8px;
+                    display:inline-block;
+                    padding:6px 16px;
+                    border-radius:25px;
+                    background:linear-gradient(90deg,#42A5F5,#66BB6A);
+                    color:white;
+                    font-weight:600;
+                    font-size:14px;
+                    animation:pulse 2s infinite;
+                    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+                ">
+                    🌤 28°C | 65% Humidity
+                </div>
             </div>
         </div>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+        """,
+        unsafe_allow_html=True
+    )
 
 
 
