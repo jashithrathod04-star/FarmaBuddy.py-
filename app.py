@@ -214,26 +214,28 @@ if not st.session_state.signed_up:
 
 # ---------------- HEADER ----------------
 # ---------------- HEADER ----------------
-st.markdown(
-    f"""
-    <div class="dashboard-header">
-        <div>
-            <h1 style="margin:0; color:white;">🌱 FarmaBuddy</h1>
-            <p style="margin:0; color:white;">AI-Powered Smart Farming Assistant</p>
-        </div>
+# We use .format() here instead of an f-string to prevent CSS {} conflicts
+header_html = """
+<div class="dashboard-header">
+    <div>
+        <h1 class="white-text">🌱 FarmaBuddy</h1>
+        <p class="white-text">AI-Powered Smart Farming Assistant</p>
+    </div>
 
-        <div style="text-align:right;">
-            <p style="margin:0; color:white;">👨‍🌾 <strong>{st.session_state.farmer_name}</strong></p>
-            <p style="margin:0; color:white;">📍 <strong>{st.session_state.farmer_location}</strong></p>
-            <div class="weather-badge">
-                🌤 28°C | 65% Humidity
-            </div>
+    <div class="header-right">
+        <p class="white-text">👨‍🌾 <strong>{name}</strong></p>
+        <p class="white-text">📍 <strong>{loc}</strong></p>
+        <div class="weather-badge">
+            🌤 28°C | 65% Humidity
         </div>
     </div>
-    """,
-    unsafe_allow_html=True
+</div>
+""".format(
+    name=st.session_state.get("farmer_name", "Farmer"), 
+    loc=st.session_state.get("farmer_location", "Unknown")
 )
 
+st.markdown(header_html, unsafe_allow_html=True)
 
 
 
