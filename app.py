@@ -98,7 +98,7 @@ section[data-testid="stSidebar"] * {
 
 /* -------- TABS -------- */
 button[data-baseweb="tab"] p {
-    font-weight: 800 !important;
+    font-weight: 500 !important;
     font-size: 16px !important;
 }
 
