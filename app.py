@@ -255,7 +255,7 @@ with tab_advice:
                 contents=build_prompt(),
                 config={
                     "temperature": temperature,
-                    "max_output_tokens": 512
+                    "max_output_tokens": 2048
                 }
             )
     
