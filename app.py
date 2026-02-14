@@ -116,7 +116,7 @@ button[data-baseweb="tab"] p {
 
 /* -------- LIGHT GREEN BUTTONS -------- */
 .stButton > button {
-    background: #04c20a !important; /* Soft light green */
+    background: #003300 !important; /* Soft light green */
     color: #003300 !important;      /* Dark green text for bold contrast */
     border: 2px solid #2E7D32 !important; /* Darker green border */
     border-radius: 14px;
