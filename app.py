@@ -140,6 +140,26 @@ div[data-testid="stCheckbox"] label p {
 }
 
 
+
+
+/* Header Layout */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+0% {transform: scale(1);}
+50% {transform: scale(1.05);}
+100% {transform: scale(1);}
+}
+
 @keyframes pulse {
 0% {transform: scale(1);}
 50% {transform: scale(1.05);}
