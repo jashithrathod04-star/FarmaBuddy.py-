@@ -139,6 +139,14 @@ div[data-testid="stCheckbox"] label p {
     box-shadow: 0px 6px 20px rgba(0,0,0,0.05);
 }
 
+
+@keyframes pulse {
+0% {transform: scale(1);}
+50% {transform: scale(1.05);}
+100% {transform: scale(1);}
+}
+
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -194,7 +202,7 @@ st.markdown(f"""
     </div>
 
     <div style="text-align:right;">
-        <p style="margin:0;">👨🌾 <strong>{st.session_state.farmer_name}</strong></p>
+        <p style="margin:0;">👨‍🌾 <strong>{st.session_state.farmer_name}</strong></p>
         <p style="margin:0;">📍 <strong>{st.session_state.farmer_location}</strong></p>
 
         <div style="
@@ -213,16 +221,8 @@ st.markdown(f"""
         </div>
     </div>
 </div>
-
-<style>
-@keyframes pulse {{
-0% {{transform: scale(1);}}
-50% {{transform: scale(1.05);}}
-100% {{transform: scale(1);}}
-}}
-
-</style>
 """, unsafe_allow_html=True)
+
 
 
 
