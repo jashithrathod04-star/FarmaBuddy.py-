@@ -198,7 +198,7 @@ if not st.session_state.signed_up:
 
 
 # ---------------- HEADER ----------------
-    st.markdown(
+ st.markdown(
         f"""
         <div class="dashboard-header">
             <div>
