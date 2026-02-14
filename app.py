@@ -44,7 +44,7 @@ st.markdown("""
 
 /* Make all standard text and labels bold and high-contrast */
 .stApp p, .stApp span, .stApp label {
-    color: #b3f2b3 !important; /* Deep dark green for better visibility */
+    color: #d7fad8 !important; /* Deep dark green for better visibility */
     font-weight: 800 !important;
     text-shadow: 1px 1px 2px rgba(255,255,255,0.8); /* White glow behind text */
 }
