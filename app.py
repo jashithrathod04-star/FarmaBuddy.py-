@@ -38,132 +38,82 @@ st.markdown("""
 <style>
 
 /* -------- GLOBAL -------- */
-/* Remove old background rules completely */
-
 .stApp {
     background: url("https://images.unsplash.com/photo-1500382017468-9049fed747ef") no-repeat center center fixed;
     background-size: cover;
 }
 
-
-
-
-
-
-/* -------- SIDEBAR -------- */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #1B5E20, #2E7D32);
-    color: white;
-}
-
-section[data-testid="stSidebar"] * {
-    color: white !important;
+/* Make all standard text and labels bold and high-contrast */
+.stApp p, .stApp span, .stApp label {
+    color: #002200 !important; /* Deep dark green for better visibility */
+    font-weight: 800 !important;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8); /* White glow behind text */
 }
 
 /* -------- HERO HEADER -------- */
 .dashboard-header {
-    background: linear-gradient(135deg, #2E7D32, #66BB6A);
+    background: linear-gradient(135deg, #1B5E20, #2E7D32); /* Darkened for better contrast */
     padding: 25px 35px;
     border-radius: 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
-    color: white;
-    box-shadow: 0px 10px 30px rgba(46,125,50,0.25);
-    backdrop-filter: blur(10px);
+    color: white !important;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+    backdrop-filter: blur(15px);
+}
+
+.white-text { 
+    color: #FFFFFF !important; 
+    margin: 0 !important; 
+    font-weight: 800 !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important; 
+}
+
+/* -------- GLASS CARD (The Advice Box) -------- */
+.glass-card {
+    background: rgba(255,255,255,0.85); /* Increased opacity */
+    padding: 25px;
+    border-radius: 18px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.glass-card h3, .glass-card li {
+    color: #003300 !important;
+    font-weight: 700 !important;
+}
+
+/* -------- SIDEBAR -------- */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0D2611, #1B5E20); /* Darker sidebar */
+}
+
+section[data-testid="stSidebar"] * {
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
 }
 
 /* -------- TABS -------- */
-button[data-baseweb="tab"] {
-    font-weight: 600;
-    color: #2E7D32;
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 6px 16px;
-    margin-right: 8px;
-    transition: 0.3s ease;
+button[data-baseweb="tab"] p {
+    font-weight: 800 !important;
+    font-size: 16px !important;
 }
 
-button[data-baseweb="tab"]:hover {
-    background-color: #e8f5e9;
-}
-
-button[data-baseweb="tab"][aria-selected="true"] {
-    background: linear-gradient(90deg, #2E7D32, #66BB6A);
-    color: white;
-}
-
-/* -------- BUTTONS -------- */
-.stButton > button {
-    background: linear-gradient(90deg, #2E7D32, #66BB6A);
-    color: white;
-    border-radius: 14px;
-    padding: 0.7em 1.5em;
-    font-weight: 600;
-    border: none;
-    box-shadow: 0px 4px 15px rgba(46,125,50,0.3);
-    transition: 0.3s ease;
-}
-
-.stButton > button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0px 8px 25px rgba(46,125,50,0.4);
-}
-
-/* -------- GLASS CARD -------- */
-.glass-card {
-    background: rgba(255,255,255,0.7);
-    padding: 20px;
-    border-radius: 18px;
-    backdrop-filter: blur(8px);
-    box-shadow: 0px 6px 20px rgba(0,0,0,0.05);
-    margin-bottom: 20px;
-}
-
-/* -------- INPUT LABELS -------- */
-label {
-    color: #1B3A2F !important;
-    font-weight: 600;
-}
-
-/* -------- CHECKBOX -------- */
-div[data-testid="stCheckbox"] label p {
-    color: #1B3A2F !important;
-}
-
-/* -------- DATAFRAME -------- */
-.stDataFrame {
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0px 6px 20px rgba(0,0,0,0.05);
-}
-
-
-
-
-
-
-@keyframes pulse {
-0% {transform: scale(1);}
-50% {transform: scale(1.05);}
-100% {transform: scale(1);}
-}
-
-
-
-.header-right { text-align: right; }
-.white-text { color: white !important; margin: 0 !important; }
+/* -------- WEATHER BADGE -------- */
 .weather-badge {
     margin-top: 8px;
     display: inline-block;
-    padding: 6px 16px;
+    padding: 8px 20px;
     border-radius: 25px;
-    background: linear-gradient(90deg, #42A5F5, #66BB6A);
-    color: white !important;
-    font-weight: 600;
+    background: #FFFFFF; /* High contrast white background */
+    color: #1B5E20 !important;
+    font-weight: 900 !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
-
 </style>
 """, unsafe_allow_html=True)
 
