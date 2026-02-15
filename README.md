@@ -1,6 +1,7 @@
 # 🌱 FarmaBuddy – AI Powered Smart Farming Assistant  
 **CRS Artificial Intelligence – Formative Assessment 2   
 **Course:** Generative A.I  
+**Team:** Jashith Rathod, Nishtha Shah, Naman Shreshtha  
 
 ---
 
@@ -283,7 +284,7 @@ Include:
 
 ## 👨‍💻 Developed By
 
-**Student Name:** Jashith Rathhod, Nishtha Shah , Naman Shreshtha  
+**Student Name:** Jashith Rathod, Nishtha Shah , Naman Shreshtha  
 **Course:** Generative A.I  
 **Assessment:** FA-2  
 **Year:** 2026  
