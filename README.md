@@ -228,7 +228,8 @@ Uploaded:
 - <img width="1625" height="702" alt="image" src="https://github.com/user-attachments/assets/1fab413d-fb6b-4853-8982-a660d09d6b01" />
   
 - **Settings tab**
-- <img width="298" height="852" alt="image" src="https://github.com/user-attachments/assets/3cf97b1c-5d6d-4849-a6f5-ba50390d8b51" />
+- <img width="1622" height="581" alt="image" src="https://github.com/user-attachments/assets/8aaffe2a-e5d6-409e-9885-c10e3107896e" />
+
   
 - **Side Bar**
 - <img width="298" height="852" alt="image" src="https://github.com/user-attachments/assets/989bb661-0877-4425-9eb4-a560b0db56a5" />
