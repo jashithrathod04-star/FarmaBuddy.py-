@@ -213,16 +213,28 @@ Uploaded:
 
 ## 📸 Screenshots of App
 
-(Add screenshots here in your GitHub repository)
 
-Include:
 
-- Sign-up page  
-- Farming Advice tab  
-- Feedback visualization  
-- Usage Snapshot  
-- Settings tab  
-- Mobile view  
+- **Sign-up page**
+- <img width="1918" height="827" alt="image" src="https://github.com/user-attachments/assets/db4fc08e-eede-4d0b-9fe3-e946c030aa3f" />
+  
+- **Farming Advice tab**
+- <img width="1915" height="835" alt="image" src="https://github.com/user-attachments/assets/c6f440b4-26f4-4abb-8dad-43a3b4886ff0" />
+
+- **Feedback visualization**
+- <img width="1625" height="678" alt="image" src="https://github.com/user-attachments/assets/c4276127-4e6a-4d4d-9d1a-3cd2bf4a6eef" />
+  
+- **Usage Snapshot**
+- <img width="1625" height="702" alt="image" src="https://github.com/user-attachments/assets/1fab413d-fb6b-4853-8982-a660d09d6b01" />
+  
+- **Settings tab**
+- <img width="298" height="852" alt="image" src="https://github.com/user-attachments/assets/3cf97b1c-5d6d-4849-a6f5-ba50390d8b51" />
+  
+- **Side Bar**
+- <img width="298" height="852" alt="image" src="https://github.com/user-attachments/assets/989bb661-0877-4425-9eb4-a560b0db56a5" />
+
+  
+ 
 
 ---
 
