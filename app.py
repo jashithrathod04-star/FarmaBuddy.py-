@@ -93,8 +93,8 @@ st.markdown("""
 }
 
 
-.glass-card h3, .glass-card li {
-    color: #a8f0a8 !important;
+.glass-card * {
+    color: #1B3A2F !important;
     font-weight: 500 !important;
 }
 
