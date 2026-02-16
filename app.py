@@ -93,10 +93,11 @@ st.markdown("""
 }
 
 
-.glass-card * {
-    color: #1B3A2F !important;
+.glass-card h3, .glass-card li {
+    color: #a6e3a6 !important;
     font-weight: 500 !important;
 }
+
 
 /* -------- SIDEBAR -------- */
 section[data-testid="stSidebar"] {
