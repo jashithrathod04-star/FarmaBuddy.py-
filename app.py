@@ -205,9 +205,9 @@ if "page" not in st.session_state:
     st.session_state.page = "landing"   # default first screen after splash
 
 # ---------------- LANDING PAGE ----------------
-if st.session_state.page == "landing":
+elif st.session_state.page == "landing":
 
-   st.markdown("""
+    st.markdown("""
     <style>
 
     /* Full page gradient background */
@@ -266,8 +266,6 @@ if st.session_state.page == "landing":
     </style>
     """, unsafe_allow_html=True)
 
-    
-
     st.markdown('<div class="glass-wrapper">', unsafe_allow_html=True)
     st.markdown('<div class="glass-card">', unsafe_allow_html=True)
 
@@ -280,7 +278,6 @@ if st.session_state.page == "landing":
 
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
-
 # ---------------- SESSION STATE INIT ----------------
 if "signed_up" not in st.session_state:
     st.session_state.signed_up = False
