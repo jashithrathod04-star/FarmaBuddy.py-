@@ -196,6 +196,63 @@ if not st.session_state.splash_done:
     st.session_state.splash_done = True
     st.rerun()
 
+
+
+
+elif st.session_state.page == "landing":
+
+    st.markdown("""
+    <style>
+    .hero {
+        text-align: center;
+        padding-top: 120px;
+    }
+
+    .headline {
+        font-size: 52px;
+        font-weight: 700;
+        color: #1b5e20;
+    }
+
+    .subtext {
+        font-size: 20px;
+        color: #2e7d32;
+        margin-top: 20px;
+    }
+
+    .stButton > button {
+        background-color: #2e7d32;
+        color: white;
+        padding: 12px 28px;
+        font-size: 18px;
+        border-radius: 10px;
+        border: none;
+        transition: 0.3s ease;
+    }
+
+    .stButton > button:hover {
+        background-color: #1b5e20;
+        transform: scale(1.05);
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="hero">', unsafe_allow_html=True)
+
+    st.markdown('<div class="headline">AI-Powered Smart Farming</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtext">Optimize yield. Reduce waste. Make data-driven decisions.</div>', unsafe_allow_html=True)
+
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        if st.button("🌿 Get Started"):
+            st.session_state.page = "dashboard"
+            st.rerun()
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
 # ---------------- SESSION STATE INIT ----------------
 if "signed_up" not in st.session_state:
     st.session_state.signed_up = False
