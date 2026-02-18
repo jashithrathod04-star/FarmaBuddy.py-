@@ -207,22 +207,70 @@ if "page" not in st.session_state:
 # ---------------- LANDING PAGE ----------------
 elif st.session_state.page == "landing":
 
-    st.markdown("""
+   st.markdown("""
     <style>
-    .hero {
-        text-align: center;
-        padding-top: 120px;
+
+    /* Full page gradient background */
+    .main {
+        background: linear-gradient(135deg, #e8f5e9, #a5d6a7);
     }
-    ...
+
+    .glass-wrapper {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 60px;
+        width: 700px;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .headline {
+        font-size: 48px;
+        font-weight: 700;
+        color: #1b5e20;
+    }
+
+    .subtext {
+        font-size: 20px;
+        color: #2e7d32;
+        margin-top: 20px;
+        line-height: 1.6;
+    }
+
+    .stButton > button {
+        background: linear-gradient(90deg, #2e7d32, #43a047);
+        color: white;
+        padding: 14px 32px;
+        font-size: 18px;
+        border-radius: 12px;
+        border: none;
+        transition: 0.3s ease;
+        margin-top: 30px;
+    }
+
+    .stButton > button:hover {
+        transform: scale(1.07);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="hero">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-wrapper">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
 
     st.markdown('<div class="headline">AI-Powered Smart Farming</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtext">Optimize yield. Reduce waste. Make data-driven decisions.</div>', unsafe_allow_html=True)
-
-    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown('<div class="subtext">Empowering farmers with intelligent insights, predictive analytics, and sustainable solutions for a smarter agricultural future.</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
