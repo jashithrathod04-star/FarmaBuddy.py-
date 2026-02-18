@@ -266,7 +266,7 @@ if st.session_state.page == "landing":
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
+    
 
     st.markdown('<div class="headline">AI-Powered Smart Farming</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtext">Empowering farmers with intelligent insights, predictive analytics, and sustainable solutions for a smarter agricultural future.</div>', unsafe_allow_html=True)
