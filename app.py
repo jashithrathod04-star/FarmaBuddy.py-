@@ -205,7 +205,7 @@ if "page" not in st.session_state:
     st.session_state.page = "landing"   # default first screen after splash
 
 # ---------------- LANDING PAGE ----------------
-elif st.session_state.page == "landing":
+if st.session_state.page == "landing":
 
    st.markdown("""
     <style>
