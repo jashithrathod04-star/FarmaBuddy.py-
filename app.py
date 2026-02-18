@@ -380,7 +380,8 @@ client = genai.Client(
 )
 # Add this temporary button to your sidebar to check names
 
-elif st.session_state.page == "signup":
+if st.session_state.page == "signup":
+
     st.markdown(
         """
         <div style="text-align:center;">
@@ -418,202 +419,202 @@ elif st.session_state.page == "signup":
 # Note: Keep the HTML tags flush to the left (no spaces before <div)
 elif st.session_state.page == "dashboard":
 
-header_html = f"""
-<div class="dashboard-header">
-<div>
-<h1 class="white-text">🌱 FarmaBuddy</h1>
-<p class="white-text">AI-Powered Smart Farming Assistant</p>
-</div>
-<div class="header-right">
-<p class="white-text">👨‍🌾 <strong>{st.session_state.get('farmer_name', 'Farmer')}</strong></p>
-<p class="white-text">📍 <strong>{st.session_state.get('farmer_location', 'Location')}</strong></p>
-<div class="weather-badge">🌤 28°C | 65% Humidity</div>
-</div>
-</div>
-"""
-
-st.html(header_html)
-
-
-
-
-# ---------------- TABS ----------------
-tab_advice, tab_feedback, tab_usage, tab_settings = st.tabs(
-    ["🌾 Farming Advice", "📊 Feedback", "📈 Usage Snapshot", "⚙️ Settings"]
-)
-
-
-
-# ---------------- USER INPUTS ----------------
-st.sidebar.header("🌍 Farmer Inputs")
-region = st.sidebar.selectbox("Select Region", ["India", "Ghana", "Canada"])
-location = st.sidebar.text_input("Enter Location (State / Province)")
-crop_stage = st.sidebar.selectbox("Crop Stage", ["Planning", "Sowing", "Growing", "Harvesting"])
-priority = st.sidebar.multiselect("Your Priorities", ["Low Water Use", "High Yield", "Organic Farming", "Low Cost"])
-temperature = st.sidebar.slider("AI Creativity Level", 0.2, 0.9, 0.5)
-
-st.markdown("""
-<hr style="border: none; height: 3px; 
-background: linear-gradient(90deg, #2E7D32, #66BB6A);
-border-radius: 5px;">
-""", unsafe_allow_html=True)
-
-
-
-# ---------------- PROMPT ENGINE ----------------
-def build_prompt():
-    return f"""
-You are a highly experienced Senior Agricultural Consultant specializing in {region}. 
-The farmer is located in {location} and is currently at the {crop_stage} stage.
-Their core priorities are: {', '.join(priority)}.
-
-Task: Provide a comprehensive, professional farming guide.
-Structure your response as follows:
-
-1. **Detailed Strategy Overview**: Provide a deep-dive analysis of what the farmer should focus on during the {crop_stage} stage based on their priorities.
-2. **5 Actionable Recommendations**: For each recommendation:
-    - **Implementation Step**: Explain exactly HOW to do it.
-    - **Scientific/Practical Benefit**: Explain WHY it works.
-    - **Resource Management**: How it helps with {', '.join(priority)}.
-3. **Risk Mitigation**: Identify 2 potential risks for this stage in {location} and how to avoid them.
-4. **Pro-Tip**: One advanced farming technique to maximize success.
-
-Use professional yet accessible language. Be specific to the geography of {location}.
-"""
-
-# ---------------- MAIN ACTION ----------------
-with tab_advice:
-    # ---------------- MAIN ACTION ----------------
-    if st.button("🌾 Get Smart Advice"):
-        if not location:
-            st.warning("Please enter your location.")
-        else:
-            response = client.models.generate_content(
-                model="gemini-3-flash-preview",
-                contents=build_prompt(),
-                config={
-                    "temperature": temperature,
-                    "max_output_tokens": 4096
-                }
-            )
+    header_html = f"""
+    <div class="dashboard-header">
+    <div>
+    <h1 class="white-text">🌱 FarmaBuddy</h1>
+    <p class="white-text">AI-Powered Smart Farming Assistant</p>
+    </div>
+    <div class="header-right">
+    <p class="white-text">👨‍🌾 <strong>{st.session_state.get('farmer_name', 'Farmer')}</strong></p>
+    <p class="white-text">📍 <strong>{st.session_state.get('farmer_location', 'Location')}</strong></p>
+    <div class="weather-badge">🌤 28°C | 65% Humidity</div>
+    </div>
+    </div>
+    """
     
-            st.markdown("""
-            <div class="glass-card">
-            <h3>🌾 AI Smart Recommendations</h3>
-            </div>
-            """, unsafe_allow_html=True)
+    st.html(header_html)
+    
+    
+    
+    
+    # ---------------- TABS ----------------
+    tab_advice, tab_feedback, tab_usage, tab_settings = st.tabs(
+        ["🌾 Farming Advice", "📊 Feedback", "📈 Usage Snapshot", "⚙️ Settings"]
+    )
+    
+    
+    
+    # ---------------- USER INPUTS ----------------
+    st.sidebar.header("🌍 Farmer Inputs")
+    region = st.sidebar.selectbox("Select Region", ["India", "Ghana", "Canada"])
+    location = st.sidebar.text_input("Enter Location (State / Province)")
+    crop_stage = st.sidebar.selectbox("Crop Stage", ["Planning", "Sowing", "Growing", "Harvesting"])
+    priority = st.sidebar.multiselect("Your Priorities", ["Low Water Use", "High Yield", "Organic Farming", "Low Cost"])
+    temperature = st.sidebar.slider("AI Creativity Level", 0.2, 0.9, 0.5)
+    
+    st.markdown("""
+    <hr style="border: none; height: 3px; 
+    background: linear-gradient(90deg, #2E7D32, #66BB6A);
+    border-radius: 5px;">
+    """, unsafe_allow_html=True)
+    
+    
+    
+    # ---------------- PROMPT ENGINE ----------------
+    def build_prompt():
+        return f"""
+    You are a highly experienced Senior Agricultural Consultant specializing in {region}. 
+    The farmer is located in {location} and is currently at the {crop_stage} stage.
+    Their core priorities are: {', '.join(priority)}.
+    
+    Task: Provide a comprehensive, professional farming guide.
+    Structure your response as follows:
+    
+    1. **Detailed Strategy Overview**: Provide a deep-dive analysis of what the farmer should focus on during the {crop_stage} stage based on their priorities.
+    2. **5 Actionable Recommendations**: For each recommendation:
+        - **Implementation Step**: Explain exactly HOW to do it.
+        - **Scientific/Practical Benefit**: Explain WHY it works.
+        - **Resource Management**: How it helps with {', '.join(priority)}.
+    3. **Risk Mitigation**: Identify 2 potential risks for this stage in {location} and how to avoid them.
+    4. **Pro-Tip**: One advanced farming technique to maximize success.
+    
+    Use professional yet accessible language. Be specific to the geography of {location}.
+    """
+    
+    # ---------------- MAIN ACTION ----------------
+    with tab_advice:
+        # ---------------- MAIN ACTION ----------------
+        if st.button("🌾 Get Smart Advice"):
+            if not location:
+                st.warning("Please enter your location.")
+            else:
+                response = client.models.generate_content(
+                    model="gemini-3-flash-preview",
+                    contents=build_prompt(),
+                    config={
+                        "temperature": temperature,
+                        "max_output_tokens": 4096
+                    }
+                )
+        
+                st.markdown("""
+                <div class="glass-card">
+                <h3>🌾 AI Smart Recommendations</h3>
+                </div>
+                """, unsafe_allow_html=True)
+        
+                st.markdown(f"""
+                <div class="glass-card">
+                {response.text}
+                </div>
+                """, unsafe_allow_html=True)
+                # -------- Advice Quality Score --------
+                advice_score = 85  # You can calculate dynamically later
+                st.markdown("### 📈 Advice Confidence Score")
+                st.progress(advice_score / 100)
+                st.caption(f"{advice_score}% Confidence Level")
+    
+    
+    
+    
+                
+    
+     
+    
+    # ---------------- FEEDBACK CHECKLIST ----------------
+    with tab_feedback:
+        st.markdown("## ✅ AI Output Validation Checklist")
+    
+        with st.form("feedback_form"):
+    
+            f1 = st.checkbox("Advice is specific to my region")
+            f2 = st.checkbox("Suggestions include valid reasoning")
+            f3 = st.checkbox("Language is easy to understand")
+            f4 = st.checkbox("Advice can be applied practically")
+            f5 = st.checkbox("No unsafe or misleading information")
+    
+            submitted = st.form_submit_button("📊 Submit Feedback")
+    
+        if submitted:
+            score = sum([f1, f2, f3, f4, f5])
+            percentage = int((score / 5) * 100)
+    
+            circumference = 440
+            progress = (percentage / 100) * circumference
     
             st.markdown(f"""
-            <div class="glass-card">
-            {response.text}
+            <div style="text-align:center;">
+            <svg width="180" height="180">
+              <circle cx="90" cy="90" r="70"
+                      stroke="#e0e0e0"
+                      stroke-width="15"
+                      fill="none"/>
+              <circle cx="90" cy="90" r="70"
+                      stroke="#2E7D32"
+                      stroke-width="15"
+                      fill="none"
+                      stroke-dasharray="{progress} {circumference}"
+                      transform="rotate(-90 90 90)"/>
+              <text x="50%" y="50%"
+                    text-anchor="middle"
+                    dy=".3em"
+                    font-size="28"
+                    fill="#1B3A2F"
+                    font-weight="bold">
+                    {percentage}%
+              </text>
+            </svg>
+            <p style="font-weight:600;">Feedback Quality Score</p>
             </div>
             """, unsafe_allow_html=True)
-            # -------- Advice Quality Score --------
-            advice_score = 85  # You can calculate dynamically later
-            st.markdown("### 📈 Advice Confidence Score")
-            st.progress(advice_score / 100)
-            st.caption(f"{advice_score}% Confidence Level")
-
-
-
-
-            
-
- 
-
-# ---------------- FEEDBACK CHECKLIST ----------------
-with tab_feedback:
-    st.markdown("## ✅ AI Output Validation Checklist")
-
-    with st.form("feedback_form"):
-
-        f1 = st.checkbox("Advice is specific to my region")
-        f2 = st.checkbox("Suggestions include valid reasoning")
-        f3 = st.checkbox("Language is easy to understand")
-        f4 = st.checkbox("Advice can be applied practically")
-        f5 = st.checkbox("No unsafe or misleading information")
-
-        submitted = st.form_submit_button("📊 Submit Feedback")
-
-    if submitted:
-        score = sum([f1, f2, f3, f4, f5])
-        percentage = int((score / 5) * 100)
-
-        circumference = 440
-        progress = (percentage / 100) * circumference
-
-        st.markdown(f"""
-        <div style="text-align:center;">
-        <svg width="180" height="180">
-          <circle cx="90" cy="90" r="70"
-                  stroke="#e0e0e0"
-                  stroke-width="15"
-                  fill="none"/>
-          <circle cx="90" cy="90" r="70"
-                  stroke="#2E7D32"
-                  stroke-width="15"
-                  fill="none"
-                  stroke-dasharray="{progress} {circumference}"
-                  transform="rotate(-90 90 90)"/>
-          <text x="50%" y="50%"
-                text-anchor="middle"
-                dy=".3em"
-                font-size="28"
-                fill="#1B3A2F"
-                font-weight="bold">
-                {percentage}%
-          </text>
-        </svg>
-        <p style="font-weight:600;">Feedback Quality Score</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-
-
-
-
-# ---------------- USAGE LOG ----------------
-with tab_usage:
-    st.markdown("## 📈 Usage Snapshot")
-
-    usage_data = {
-        "Farmer Name": st.session_state.farmer_name,
-        "Location": st.session_state.farmer_location,
-        "Region": region,
-        "Crop Stage": crop_stage,
-        "Time": datetime.now().strftime("%Y-%m-%d %H:%M")
-    }
-
-    st.dataframe(pd.DataFrame([usage_data]))
-
-    st.info(
-        "This snapshot helps track how farmers are using FarmaBuddy over time."
-    )
-
-
-
-# ---------------- SETTINGS TAB ----------------
-with tab_settings:
-    st.markdown("## ⚙️ App Settings")
-
-    st.markdown("### 👨‍🌾 Farmer Profile")
-    st.info(
-        f"""
-        **Name:** {st.session_state.farmer_name}  
-        **Location:** {st.session_state.farmer_location}
-        """
-    )
-
-    st.markdown("---")
-
-    st.markdown("### 🚪 Account Actions")
-
-    if st.button("Sign Out"):
-        st.session_state.signed_up = False
-        st.session_state.farmer_name = ""
-        st.session_state.farmer_location = ""
-        st.success("You have been signed out successfully.")
-        st.rerun()
-
-# ---------------- FOOTER ----------------
-st.markdown("<hr><p style='text-align:center; font-size:14px;'>FA-2 Project | 2026</p>", unsafe_allow_html=True)
+    
+    
+    
+    
+    
+    # ---------------- USAGE LOG ----------------
+    with tab_usage:
+        st.markdown("## 📈 Usage Snapshot")
+    
+        usage_data = {
+            "Farmer Name": st.session_state.farmer_name,
+            "Location": st.session_state.farmer_location,
+            "Region": region,
+            "Crop Stage": crop_stage,
+            "Time": datetime.now().strftime("%Y-%m-%d %H:%M")
+        }
+    
+        st.dataframe(pd.DataFrame([usage_data]))
+    
+        st.info(
+            "This snapshot helps track how farmers are using FarmaBuddy over time."
+        )
+    
+    
+    
+    # ---------------- SETTINGS TAB ----------------
+    with tab_settings:
+        st.markdown("## ⚙️ App Settings")
+    
+        st.markdown("### 👨‍🌾 Farmer Profile")
+        st.info(
+            f"""
+            **Name:** {st.session_state.farmer_name}  
+            **Location:** {st.session_state.farmer_location}
+            """
+        )
+    
+        st.markdown("---")
+    
+        st.markdown("### 🚪 Account Actions")
+    
+        if st.button("Sign Out"):
+            st.session_state.signed_up = False
+            st.session_state.farmer_name = ""
+            st.session_state.farmer_location = ""
+            st.success("You have been signed out successfully.")
+            st.rerun()
+    
+    # ---------------- FOOTER ----------------
+    st.markdown("<hr><p style='text-align:center; font-size:14px;'>FA-2 Project | 2026</p>", unsafe_allow_html=True)
