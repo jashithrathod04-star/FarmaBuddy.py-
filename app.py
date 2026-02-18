@@ -272,7 +272,7 @@ st.markdown('<div class="headline">AI-Powered Smart Farming</div>', unsafe_allow
 st.markdown('<div class="subtext">Empowering farmers with intelligent insights, predictive analytics, and sustainable solutions for a smarter agricultural future.</div>', unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns([1,2,1])
-    with col2:
+     with col2:
         if st.button("🌿 Get Started"):
             st.session_state.page = "signup"
             st.rerun()
