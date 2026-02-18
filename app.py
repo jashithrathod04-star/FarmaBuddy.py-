@@ -194,11 +194,17 @@ if not st.session_state.splash_done:
     time.sleep(5)
 
     st.session_state.splash_done = True
+    st.session_state.page = "landing"
     st.rerun()
 
 
 
 
+# ---------------- PAGE CONTROLLER ----------------
+if "page" not in st.session_state:
+    st.session_state.page = "landing"   # default first screen after splash
+
+# ---------------- LANDING PAGE ----------------
 elif st.session_state.page == "landing":
 
     st.markdown("""
@@ -207,34 +213,7 @@ elif st.session_state.page == "landing":
         text-align: center;
         padding-top: 120px;
     }
-
-    .headline {
-        font-size: 52px;
-        font-weight: 700;
-        color: #1b5e20;
-    }
-
-    .subtext {
-        font-size: 20px;
-        color: #2e7d32;
-        margin-top: 20px;
-    }
-
-    .stButton > button {
-        background-color: #2e7d32;
-        color: white;
-        padding: 12px 28px;
-        font-size: 18px;
-        border-radius: 10px;
-        border: none;
-        transition: 0.3s ease;
-    }
-
-    .stButton > button:hover {
-        background-color: #1b5e20;
-        transform: scale(1.05);
-    }
-
+    ...
     </style>
     """, unsafe_allow_html=True)
 
@@ -248,7 +227,7 @@ elif st.session_state.page == "landing":
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
         if st.button("🌿 Get Started"):
-            st.session_state.page = "dashboard"
+            st.session_state.page = "signup"
             st.rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
@@ -401,7 +380,7 @@ client = genai.Client(
 )
 # Add this temporary button to your sidebar to check names
 
-if not st.session_state.signed_up:
+elif st.session_state.page == "signup":
     st.markdown(
         """
         <div style="text-align:center;">
@@ -422,7 +401,7 @@ if not st.session_state.signed_up:
         if farmer_name and farmer_location:
             st.session_state.farmer_name = farmer_name
             st.session_state.farmer_location = farmer_location
-            st.session_state.signed_up = True
+            st.session_state.page = "dashboard"
             st.rerun()
         else:
             st.warning("Please fill in all fields.")
@@ -437,6 +416,8 @@ if not st.session_state.signed_up:
 # ---------------- HEADER ----------------
 # Use st.html instead of st.markdown for better reliability
 # Note: Keep the HTML tags flush to the left (no spaces before <div)
+elif st.session_state.page == "dashboard":
+
 header_html = f"""
 <div class="dashboard-header">
 <div>
