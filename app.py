@@ -268,8 +268,8 @@ if st.session_state.page == "landing":
 
     
 
-    st.markdown('<div class="headline">AI-Powered Smart Farming</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtext">Empowering farmers with intelligent insights, predictive analytics, and sustainable solutions for a smarter agricultural future.</div>', unsafe_allow_html=True)
+st.markdown('<div class="headline">AI-Powered Smart Farming</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtext">Empowering farmers with intelligent insights, predictive analytics, and sustainable solutions for a smarter agricultural future.</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
