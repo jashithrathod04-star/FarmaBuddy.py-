@@ -483,6 +483,14 @@ elif st.session_state.page == "dashboard":
     
         st.markdown("## 💬 Ask FarmaBuddy AI")
         st.info("Click a quick question or type your own below.")
+
+            col_back, col_space = st.columns([1, 5])
+
+    with col_back:
+        if st.button("⬅ Back to Dashboard"):
+            st.session_state.query_mode = False
+            st.rerun()
+
     
         col1, col2 = st.columns(2)
     
@@ -584,8 +592,7 @@ elif st.session_state.page == "dashboard":
     if st.sidebar.button("💬 Query AI"):
         st.session_state.query_mode = True
     
-    if st.sidebar.button("⬅ Back to Dashboard"):
-        st.session_state.query_mode = False
+    
 
 
     
