@@ -480,16 +480,19 @@ elif st.session_state.page == "dashboard":
 
     # ---------------- QUERY MODE PAGE ----------------
     if st.session_state.query_mode:
+
+        col_title, col_back = st.columns([6, 1])
     
-        st.markdown("## 💬 Ask FarmaBuddy AI")
+        with col_title:
+            st.markdown("## 💬 Ask FarmaBuddy AI")
+    
+        with col_back:
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("⬅ Dashboard"):
+                st.session_state.query_mode = False
+                st.rerun()
+    
         st.info("Click a quick question or type your own below.")
-
-    col_back, col_space = st.columns([1, 5])
-
-    with col_back:
-        if st.button("⬅ Back to Dashboard"):
-            st.session_state.query_mode = False
-            st.rerun()
 
     
         col1, col2 = st.columns(2)
