@@ -273,6 +273,11 @@ if "farmer_location" not in st.session_state:
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
+
+if "query_mode" not in st.session_state:
+    st.session_state.query_mode = False
+
+
 if "chat_mode" not in st.session_state:
     st.session_state.chat_mode = False
 
@@ -471,7 +476,84 @@ elif st.session_state.page == "dashboard":
     st.html(header_html)
     
     
-    
+
+
+    # ---------------- QUERY MODE PAGE ----------------
+if st.session_state.query_mode:
+
+    st.markdown("## 💬 Ask FarmaBuddy AI")
+    st.info("Click a quick question or type your own below.")
+
+    col1, col2 = st.columns(2)
+
+    # Quick questions
+    if col1.button("🌾 Best crop this season?"):
+        st.session_state.chat_history.append(
+            {"role": "user", "content": "What is the best crop to grow this season in my region?"}
+        )
+
+    if col2.button("💧 Improve soil fertility?"):
+        st.session_state.chat_history.append(
+            {"role": "user", "content": "How can I naturally improve soil fertility?"}
+        )
+
+    if col1.button("🐛 Natural pest control?"):
+        st.session_state.chat_history.append(
+            {"role": "user", "content": "What are effective natural pest control methods?"}
+        )
+
+    if col2.button("🌦 Protect crops from climate risks?"):
+        st.session_state.chat_history.append(
+            {"role": "user", "content": "How can I protect crops from extreme weather conditions?"}
+        )
+
+    st.markdown("---")
+
+    # Show chat history
+    for message in st.session_state.chat_history:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    # Input box
+    user_prompt = st.chat_input("Type your farming question...")
+
+    if user_prompt:
+        st.session_state.chat_history.append(
+            {"role": "user", "content": user_prompt}
+        )
+
+    # Generate AI reply
+    if st.session_state.chat_history:
+        if st.session_state.chat_history[-1]["role"] == "user":
+
+            conversation = [
+                {
+                    "role": m["role"],
+                    "parts": [{"text": m["content"]}]
+                }
+                for m in st.session_state.chat_history
+            ]
+
+            response = client.models.generate_content(
+                model="gemini-3-flash-preview",
+                contents=conversation,
+                config={
+                    "temperature": 0.6,
+                    "max_output_tokens": 2048
+                }
+            )
+
+            ai_reply = response.text
+
+            st.session_state.chat_history.append(
+                {"role": "assistant", "content": ai_reply}
+            )
+
+            with st.chat_message("assistant"):
+                st.markdown(ai_reply)
+
+    st.stop()
+
     
     # ---------------- TABS ----------------
     tab_advice, tab_feedback, tab_usage, tab_settings = st.tabs(
@@ -496,6 +578,15 @@ elif st.session_state.page == "dashboard":
 
    
     st.session_state.chat_mode = st.sidebar.toggle("💬 AI Chatbot")
+
+    
+
+    if st.sidebar.button("💬 Query AI"):
+        st.session_state.query_mode = True
+    
+    if st.sidebar.button("⬅ Back to Dashboard"):
+        st.session_state.query_mode = False
+
 
     
     
