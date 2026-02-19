@@ -423,7 +423,51 @@ client = genai.Client(
 # ---------------- PERSONA PAGE ----------------
 if st.session_state.page == "persona":
 
-    st.markdown("## 👤 Farmer Profile")
+        st.markdown("""
+        <style>
+        .persona-bg {
+            background-color: #f5f1eb;
+            padding: 40px;
+            border-radius: 25px;
+            max-width: 650px;
+            margin: auto;
+        }
+        .persona-title {
+            color: #2e7d32;
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .persona-subtitle {
+            color: #6d4c41;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .profile-img {
+            display: flex;
+            justify-content: center;
+        }
+        .profile-img img {
+            border-radius: 50%;
+            border: 4px solid #2e7d32;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="persona-bg">', unsafe_allow_html=True)
+
+    st.markdown('<div class="profile-img">', unsafe_allow_html=True)
+    st.image(
+        "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+        width=140
+    )
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    
+    st.markdown('<div class="persona-title">Create Your Farmer Profile</div>', unsafe_allow_html=True)
+    st.markdown('<div class="persona-subtitle">Tell us about your farm</div>', unsafe_allow_html=True)
+
 
     name = st.text_input("👤 Name")
     age = st.text_input("🎂 Age")
@@ -445,6 +489,8 @@ if st.session_state.page == "persona":
 
         st.session_state.page = "signup"
         st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
