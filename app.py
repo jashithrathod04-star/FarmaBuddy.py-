@@ -505,15 +505,7 @@ if st.session_state.page == "signup":
 # Note: Keep the HTML tags flush to the left (no spaces before <div)
 elif st.session_state.page == "dashboard":
 
-    with st.sidebar:
-
-        st.title("🌾 Farma Buddy")
-
-        st.markdown("---")
-
-        if st.button("🤖 A.I. Insights"):
-            st.session_state.page = "ai_insights"
-            st.rerun()
+   
     
 
     header_html = f"""
