@@ -421,7 +421,7 @@ client = genai.Client(
 # Add this temporary button to your sidebar to check names
 
 # ---------------- PERSONA PAGE ----------------
-elif st.session_state.page == "persona":
+if st.session_state.page == "persona":
 
     st.markdown("## 👤 Farmer Profile")
 
