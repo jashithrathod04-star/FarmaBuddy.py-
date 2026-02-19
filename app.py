@@ -269,6 +269,15 @@ if "farmer_location" not in st.session_state:
     st.session_state.farmer_location = ""
 
 
+# ---------------- CHAT SESSION STATE ----------------
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+if "chat_mode" not in st.session_state:
+    st.session_state.chat_mode = False
+
+
+
 
 
 
@@ -484,6 +493,10 @@ elif st.session_state.page == "dashboard":
     background: linear-gradient(90deg, #2E7D32, #66BB6A);
     border-radius: 5px;">
     """, unsafe_allow_html=True)
+
+   
+    st.session_state.chat_mode = st.sidebar.toggle("💬 AI Chatbot")
+
     
     
     
@@ -641,6 +654,58 @@ elif st.session_state.page == "dashboard":
             st.session_state.farmer_location = ""
             st.success("You have been signed out successfully.")
             st.rerun()
+
+    # ---------------- CHATBOT INTERFACE ----------------
+    if st.session_state.chat_mode:
     
+        st.markdown("## 💬 FarmaBuddy AI Chatbot")
+    
+        # Show previous messages
+        for message in st.session_state.chat_history:
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
+    
+        # Chat input box
+        user_prompt = st.chat_input("Ask me anything about farming...")
+    
+        if user_prompt:
+    
+            # Save user message
+            st.session_state.chat_history.append(
+                {"role": "user", "content": user_prompt}
+            )
+    
+            with st.chat_message("user"):
+                st.markdown(user_prompt)
+    
+            # Build full conversation for Gemini
+            conversation = [
+                {
+                    "role": m["role"],
+                    "parts": [{"text": m["content"]}]
+                }
+                for m in st.session_state.chat_history
+            ]
+    
+            # Get Gemini response
+            response = client.models.generate_content(
+                model="gemini-3-flash-preview",
+                contents=conversation,
+                config={
+                    "temperature": 0.6,
+                    "max_output_tokens": 2048
+                }
+            )
+    
+            ai_reply = response.text
+    
+            # Save AI message
+            st.session_state.chat_history.append(
+                {"role": "assistant", "content": ai_reply}
+            )
+    
+            with st.chat_message("assistant"):
+                st.markdown(ai_reply)
+
     # ---------------- FOOTER ----------------
     st.markdown("<hr><p style='text-align:center; font-size:14px;'>FA-2 Project | 2026</p>", unsafe_allow_html=True)
