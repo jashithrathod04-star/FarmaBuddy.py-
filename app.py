@@ -505,9 +505,6 @@ if st.session_state.page == "signup":
 # Note: Keep the HTML tags flush to the left (no spaces before <div)
 elif st.session_state.page == "dashboard":
 
-   
-    
-
     header_html = f"""
     <div class="dashboard-header">
     <div>
@@ -523,111 +520,6 @@ elif st.session_state.page == "dashboard":
     """
     
     st.html(header_html)
-
-
-    # ---------------- AI INSIGHTS PAGE ----------------
-if st.session_state.page == "ai_insights":
-
-    st.markdown("""
-    <style>
-
-    .insight-card {
-        background: #ffffff;
-        padding: 20px;
-        border-radius: 20px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-        margin-bottom: 20px;
-    }
-
-    .top-weather {
-        background: linear-gradient(90deg, #cfe8f5, #d6f0e2);
-        padding: 25px;
-        border-radius: 25px;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.07);
-        margin-bottom: 25px;
-    }
-
-    .ai-banner {
-        background: #4f8f4f;
-        color: white;
-        padding: 20px;
-        border-radius: 20px;
-        font-weight: 500;
-        margin-top: 20px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    }
-
-    </style>
-    """, unsafe_allow_html=True)
-
-    # Back Button aligned right
-    col1, col2 = st.columns([8,1])
-    with col2:
-        if st.button("⬅ Dashboard"):
-            st.session_state.page = "dashboard"
-            st.rerun()
-
-    # TOP WEATHER CARD
-    st.markdown("""
-    <div class="top-weather">
-        <h4>Weather Today</h4>
-        <p>Partly Cloudy</p>
-        <h2 style="float:right;">29°C</h2>
-        <p style="float:right;">65% Rain</p>
-        <div style="clear:both;"></div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # TWO COLUMN LAYOUT
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.markdown("""
-        <div class="insight-card">
-            <h5>Soil Moisture</h5>
-            <h2>65%</h2>
-            <p style="color:green;">Optimal</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col2:
-        st.markdown("""
-        <div class="insight-card">
-            <h5>Crop Health</h5>
-            <h2>92%</h2>
-            <p style="color:green;">Excellent</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    col3, col4 = st.columns(2)
-
-    with col3:
-        st.markdown("""
-        <div class="insight-card">
-            <h5>Market Price</h5>
-            <h2>₹2,450/q</h2>
-            <p style="color:green;">+12% this week</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col4:
-        st.markdown("""
-        <div class="insight-card" style="background:#f5d5c7;">
-            <h5>Climate Alert</h5>
-            <h3>Low Risk</h3>
-            <p>Favorable conditions expected</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    # AI INSIGHT BANNER
-    st.markdown("""
-    <div class="ai-banner">
-        🌤 AI Insight: Perfect time for irrigation. Soil moisture will drop by 8% in next 6 hours.
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.stop()
-
     
     
 
