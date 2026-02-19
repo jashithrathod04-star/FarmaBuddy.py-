@@ -484,7 +484,7 @@ elif st.session_state.page == "dashboard":
         st.markdown("## 💬 Ask FarmaBuddy AI")
         st.info("Click a quick question or type your own below.")
 
-            col_back, col_space = st.columns([1, 5])
+    col_back, col_space = st.columns([1, 5])
 
     with col_back:
         if st.button("⬅ Back to Dashboard"):
