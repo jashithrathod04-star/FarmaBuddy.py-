@@ -254,7 +254,7 @@ if st.session_state.page == "landing":
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
         if st.button("🌿 Get Started"):
-            st.session_state.page = "signup"
+            st.session_state.page = "persona"
             st.rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
@@ -419,6 +419,34 @@ client = genai.Client(
     api_key=st.secrets["GEMINI_API_KEY"],
 )
 # Add this temporary button to your sidebar to check names
+
+# ---------------- PERSONA PAGE ----------------
+elif st.session_state.page == "persona":
+
+    st.markdown("## 👤 Farmer Profile")
+
+    name = st.text_input("👤 Name")
+    age = st.text_input("🎂 Age")
+    location = st.text_input("📍 Location")
+    farm_size = st.text_input("🏡 Farm Size")
+    crops = st.text_input("🌾 Crops")
+    dairy = st.text_input("🐄 Dairy")
+
+    if st.button("Continue to Sign Up"):
+
+        st.session_state.user_profile = {
+            "name": name,
+            "age": age,
+            "location": location,
+            "farm_size": farm_size,
+            "crops": crops,
+            "dairy": dairy
+        }
+
+        st.session_state.page = "signup"
+        st.rerun()
+
+
 
 if st.session_state.page == "signup":
 
