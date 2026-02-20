@@ -687,6 +687,44 @@ elif st.session_state.page == "dashboard":
                 st.warning("Please enter your details.")
     
             else:
+                # Show elegant loading card while AI generates response
+                loading_placeholder = st.empty()  # Placeholder to update later
+                
+                loading_placeholder.markdown("""
+                <div class="glass-card" style="text-align:center;">
+                    <h3>🌾 AI is generating your smart advice...</h3>
+                    <div class="loader"></div>
+                </div>
+                
+                <style>
+                /* Elegant bouncing dots loader */
+                .loader {
+                  display: flex;
+                  justify-content: center;
+                  margin-top: 15px;
+                }
+                .loader div {
+                  width: 12px;
+                  height: 12px;
+                  margin: 0 5px;
+                  background: #43a047;  /* match your green theme */
+                  border-radius: 50%;
+                  animation: bounce 1.2s infinite ease-in-out;
+                }
+                .loader div:nth-child(1) { animation-delay: 0s; }
+                .loader div:nth-child(2) { animation-delay: 0.2s; }
+                .loader div:nth-child(3) { animation-delay: 0.4s; }
+                
+                @keyframes bounce {
+                  0%, 80%, 100% { transform: scale(0); }
+                  40% { transform: scale(1); }
+                }
+                </style>
+                <div class="loader">
+                  <div></div><div></div><div></div>
+                </div>
+                """, unsafe_allow_html=True)
+                
                 response = client.models.generate_content(
                     model="gemini-3-flash-preview",
                     contents=build_prompt(),
@@ -705,6 +743,13 @@ elif st.session_state.page == "dashboard":
                 st.markdown(f"""
                 <div class="glass-card">
                 {response.text}
+                </div>
+                """, unsafe_allow_html=True)
+
+                loading_placeholder.markdown(f"""
+                <div class="glass-card">
+                    <h3>🌾 AI Smart Recommendations</h3>
+                    {response.text}
                 </div>
                 """, unsafe_allow_html=True)
     
