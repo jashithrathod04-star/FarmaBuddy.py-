@@ -665,22 +665,22 @@ elif st.session_state.page == "dashboard":
     
     # ---------------- MAIN ACTION ----------------
     with tab_advice:
-         # ---------------- FARMER INPUT SUMMARY CARD ----------------
-        st.markdown("""
-        <div class="glass-card">
-            <h3>👨‍🌾 Farmer Input Summary</h3>
-        </div>
-        """, unsafe_allow_html=True)
-    
-        st.markdown(f"""
-        <div class="glass-card">
-            <p><strong>Region:</strong> {region}</p>
-            <p><strong>Location:</strong> {location if location else "Not Provided"}</p>
-            <p><strong>Crop Stage:</strong> {crop_stage}</p>
-            <p><strong>Priorities:</strong> {', '.join(priority) if priority else "None Selected"}</p>
-            <p><strong>AI Creativity Level:</strong> {temperature}</p>
-        </div>
-        """, unsafe_allow_html=True)
+             st.markdown("""
+            <div class="glass-card">
+                <h3>👨‍🌾 Farmer Input Summary</h3>
+            </div>
+            """, unsafe_allow_html=True)
+        
+            st.markdown(f"""
+            <div class="glass-card">
+                <p><strong>Region:</strong> {region}</p>
+                <p><strong>Location:</strong> {location if location else "Not Provided"}</p>
+                <p><strong>Crop Stage:</strong> {crop_stage}</p>
+                <p><strong>Priorities:</strong> {', '.join(priority) if priority else "None Selected"}</p>
+                <p><strong>AI Creativity Level:</strong> {temperature}</p>
+            </div>
+            """, unsafe_allow_html=True)
+
         
         # ---------------- MAIN ACTION ----------------
         if st.button("🌾 Get Smart Advice"):
