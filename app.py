@@ -446,54 +446,32 @@ if st.session_state.page == "persona":
     crops = st.text_input("🌾 Crops")
     dairy = st.text_input("🐄 Dairy")
 
-    if st.button("Continue to Sign Up"):
+    if st.button("🚀 Continue to Dashboard"):
 
-        st.session_state.user_profile = {
-            "name": name,
-            "age": age,
-            "location": location,
-            "farm_size": farm_size,
-            "crops": crops,
-            "dairy": dairy
-        }
-
-        st.session_state.page = "signup"
-        st.rerun()
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
-
-
-
-
-if st.session_state.page == "signup":
-
-    st.markdown(
-        """
-        <div style="text-align:center;">
-            <h1 style="color:#1B3A2F;">🌱 FarmaBuddy Sign Up</h1>
-            <p style="color:#2E7D32;">
-                Welcome! Please enter your details to continue.
-            </p>
-            <hr>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    farmer_name = st.text_input("👨🌾 Farmer Name")
-    farmer_location = st.text_input("📍 Village / City / State")
-
-    if st.button("✅ Sign Up"):
-        if farmer_name and farmer_location:
-            st.session_state.farmer_name = farmer_name
-            st.session_state.farmer_location = farmer_location
+        if not name or not location:
+            st.warning("Please fill in at least Name and Location.")
+        else:
+            # Save profile
+            st.session_state.user_profile = {
+                "name": name,
+                "age": age,
+                "location": location,
+                "farm_size": farm_size,
+                "crops": crops,
+                "dairy": dairy
+            }
+    
+            # Save dashboard header values
+            st.session_state.farmer_name = name
+            st.session_state.farmer_location = location
+    
             st.session_state.page = "dashboard"
             st.rerun()
-        else:
-            st.warning("Please fill in all fields.")
 
-    st.stop()
+
+
+
+
 
 
 
