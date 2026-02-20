@@ -629,7 +629,7 @@ elif st.session_state.page == "dashboard":
     """, unsafe_allow_html=True)
 
    
-    st.session_state.chat_mode = st.sidebar.toggle("💬 AI Chatbot")
+    
 
     
 
