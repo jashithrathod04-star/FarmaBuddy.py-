@@ -583,9 +583,14 @@ elif st.session_state.page == "dashboard":
                 st.session_state.chat_history.append(
                     {"role": "assistant", "content": ai_reply}
                 )
-    
+                
                 with st.chat_message("assistant"):
-                    st.markdown(ai_reply)
+                    st.markdown(f"""
+                    <div class="glass-card">
+                        <h3>💬 AI Response</h3>
+                        {ai_reply}
+                    </div>
+                    """, unsafe_allow_html=True)
     
         st.stop()
 
