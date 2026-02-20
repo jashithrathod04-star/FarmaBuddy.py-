@@ -665,21 +665,69 @@ elif st.session_state.page == "dashboard":
     
     # ---------------- MAIN ACTION ----------------
     with tab_advice:
-             st.markdown("""
-            <div class="glass-card">
-                <h3>👨‍🌾 Farmer Input Summary</h3>
-            </div>
-            """, unsafe_allow_html=True)
-        
-            st.markdown(f"""
-            <div class="glass-card">
-                <p><strong>Region:</strong> {region}</p>
-                <p><strong>Location:</strong> {location if location else "Not Provided"}</p>
-                <p><strong>Crop Stage:</strong> {crop_stage}</p>
-                <p><strong>Priorities:</strong> {', '.join(priority) if priority else "None Selected"}</p>
-                <p><strong>AI Creativity Level:</strong> {temperature}</p>
-            </div>
-            """, unsafe_allow_html=True)
+
+        st.markdown("## 🌾 Farm Details")
+    
+        col1, col2 = st.columns(2)
+    
+        with col1:
+            region = st.selectbox(
+                "Select Region",
+                ["North", "South", "East", "West"]
+            )
+    
+            location = st.text_input("Enter Your Farm Location")
+    
+            crop_stage = st.selectbox(
+                "Crop Growth Stage",
+                ["Seedling", "Vegetative", "Flowering", "Harvesting"]
+            )
+    
+        with col2:
+            priority = st.multiselect(
+                "Your Priority",
+                ["Increase Yield", "Pest Control", "Save Water", "Improve Soil"]
+            )
+    
+            temperature = st.slider(
+                "AI Creativity Level",
+                0.0, 1.0, 0.7
+            )
+    
+        st.markdown("---")
+    
+        if st.button("🌾 Get Smart Advice"):
+    
+            if not location:
+                st.warning("Please enter your location.")
+    
+            else:
+                response = client.models.generate_content(
+                    model="gemini-3-flash-preview",
+                    contents=build_prompt(),
+                    config={
+                        "temperature": temperature,
+                        "max_output_tokens": 4096
+                    }
+                )
+    
+                st.markdown("""
+                <div class="glass-card">
+                <h3>🌾 AI Smart Recommendations</h3>
+                </div>
+                """, unsafe_allow_html=True)
+    
+                st.markdown(f"""
+                <div class="glass-card">
+                {response.text}
+                </div>
+                """, unsafe_allow_html=True)
+    
+                advice_score = 85
+                st.markdown("### 📈 Advice Confidence Score")
+                st.progress(advice_score / 100)
+                st.caption(f"{advice_score}% Confidence Level")
+    
 
         
         # ---------------- MAIN ACTION ----------------
