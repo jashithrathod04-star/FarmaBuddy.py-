@@ -558,41 +558,65 @@ elif st.session_state.page == "dashboard":
             )
     
         # Generate AI reply
-        if st.session_state.chat_history:
-            if st.session_state.chat_history[-1]["role"] == "user":
-    
-                conversation = [
-                    {
-                        "role": m["role"],
-                        "parts": [{"text": m["content"]}]
-                    }
-                    for m in st.session_state.chat_history
-                ]
-    
-                response = client.models.generate_content(
-                    model="gemini-3-flash-preview",
-                    contents=conversation,
-                    config={
-                        "temperature": 0.6,
-                        "max_output_tokens": 2048
-                    }
-                )
-    
-                ai_reply = response.text
-    
-                st.session_state.chat_history.append(
-                    {"role": "assistant", "content": ai_reply}
-                )
-                
-                with st.chat_message("assistant"):
-                    st.markdown(f"""
-                    <div class="glass-card">
-                        <h3>💬 AI Response</h3>
-                        {ai_reply}
-                    </div>
-                    """, unsafe_allow_html=True)
-    
-        st.stop()
+        # Generate AI reply and show in elegant glass-card
+        if st.session_state.chat_history[-1]["role"] == "user":
+        
+            # Show elegant loading card first
+            loading_placeholder = st.empty()
+            loading_placeholder.markdown("""
+            <div class="glass-card" style="text-align:center;">
+                <h3>💬 AI is thinking...</h3>
+                <div class="loader"></div>
+            </div>
+        
+            <style>
+            .loader {
+              display: flex;
+              justify-content: center;
+              margin-top: 15px;
+            }
+            .loader div {
+              width: 12px;
+              height: 12px;
+              margin: 0 5px;
+              background: #43a047;
+              border-radius: 50%;
+              animation: bounce 1.2s infinite ease-in-out;
+            }
+            .loader div:nth-child(1) { animation-delay: 0s; }
+            .loader div:nth-child(2) { animation-delay: 0.2s; }
+            .loader div:nth-child(3) { animation-delay: 0.4s; }
+            @keyframes bounce {0%, 80%, 100% { transform: scale(0);} 40% {transform: scale(1);}}
+            </style>
+            <div class="loader"><div></div><div></div><div></div></div>
+            """, unsafe_allow_html=True)
+        
+            # Call API
+            conversation = [
+                {"role": m["role"], "parts": [{"text": m["content"]}]}
+                for m in st.session_state.chat_history
+            ]
+            response = client.models.generate_content(
+                model="gemini-3-flash-preview",
+                contents=conversation,
+                config={"temperature": 0.6, "max_output_tokens": 2048}
+            )
+            ai_reply = response.text
+            st.session_state.chat_history.append({"role": "assistant", "content": ai_reply})
+        
+            # Replace loading with glass card AI response
+            loading_placeholder.markdown(f"""
+            <div class="glass-card">
+                <h3>💬 AI Response</h3>
+                {ai_reply}
+            </div>
+            """, unsafe_allow_html=True)
+        
+        # <-- Make sure you still have this input box AFTER messages
+        user_prompt = st.chat_input("Type your farming question...")
+        if user_prompt:
+            st.session_state.chat_history.append({"role": "user", "content": user_prompt})
+            st.rerun()
 
     
     # ---------------- TABS ----------------
