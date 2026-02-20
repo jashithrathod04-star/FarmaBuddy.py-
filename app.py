@@ -677,7 +677,7 @@ elif st.session_state.page == "dashboard":
         if st.button("🌾 Get Smart Advice"):
     
             if not location:
-                st.warning("Please enter your location.")
+                st.warning("Please enter your details.")
     
             else:
                 response = client.models.generate_content(
@@ -808,6 +808,7 @@ elif st.session_state.page == "dashboard":
             st.session_state.signed_up = False
             st.session_state.farmer_name = ""
             st.session_state.farmer_location = ""
+            st.session_state.page = "landing"
             st.success("You have been signed out successfully.")
             st.rerun()
 
