@@ -609,7 +609,7 @@ elif st.session_state.page == "dashboard":
    
     
 
-    
+    st.write("### ℹ️ For more information, double click below 👇") 
 
     if st.sidebar.button("💬 Query AI"):
         st.session_state.query_mode = True
